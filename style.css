@@ -1,0 +1,200 @@
+
+.body
+
+{
+
+	background-color:#FFFFFF;
+
+}
+
+.bg{
+
+	height: 100vh;
+
+	width: 100%;
+
+	background-image: url(assets/bg.png);
+
+	background-repeat: no-repeat;
+
+
+	-webkit-background-size: cover;
+
+	-moz-background-size: cover;
+
+	-o-background-size: cover;
+
+	background-size: cover;
+
+}
+
+
+.bg div img{
+
+	position: relative;
+
+	display: block;
+
+	margin-left: auto;
+
+	margin-right: auto;
+
+	width: 50%;
+
+	height: 300px;
+
+	width: 90vh;
+
+	top: 30vh;
+
+}
+
+
+.landingBtn{
+
+	top: 450px;
+
+}
+
+
+.landingBtn button{
+
+	width: 15vh;
+
+	height: 5vh;
+
+	padding: 1vh;
+
+}
+
+
+.btn-1{
+
+	background-color: #ffffff;
+
+	border: 2px solid #163245;
+
+
+	font-family: 'Lato', sans-serif;
+
+	font-style: normal;
+
+	font-weight: bold;
+
+	font-size: 12px;
+
+	text-align: center;
+
+	margin-right: -2px;
+
+
+	color: #163245;
+
+	outline: none;
+
+
+}
+
+
+.btn-2{
+
+	background-color: #163245;
+
+	border: 2px solid #163245;
+
+
+	font-family: 'Lato', sans-serif;
+
+	font-style: normal;
+
+	font-weight: bold;
+
+	font-size: 12px;
+
+	text-align: center;
+
+	margin-left: -2px;;
+
+
+	color: #ffffff;
+
+	outline: none;	
+
+}
+
+
+.btn-1:hover
+
+{
+
+	/*margin-right: 1px;*/
+
+}
+
+
+.btn-2:hover
+
+{
+
+	/*margin-left: 1px;*/
+
+}
+
+
+.btn-1:active
+
+{
+
+	background-color: #163245;
+
+	border: 2px solid #163245;
+
+
+	font-family: 'Lato', sans-serif;
+
+	font-style: normal;
+
+	font-weight: bold;
+
+	font-size: 12px;
+
+	text-align: center;
+
+	margin-left: -2px;;
+
+
+	color: #ffffff;
+
+	outline: none;	
+
+}
+
+
+.btn-2:active
+
+{
+
+	background-color: #ffffff;
+
+	border: 2px solid #163245;
+
+
+	font-family: 'Lato', sans-serif;
+
+	font-style: normal;
+
+	font-weight: bold;
+
+	font-size: 12px;
+
+	text-align: center;
+
+	margin-right: -2px;
+
+
+	color: #163245;
+
+	outline: none;
+
+}
+

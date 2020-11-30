@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>3D Model Cell</title>
+    <meta name="description" content="3D Model Cell">
+    <meta aframe-injected="" name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,shrink-to-fit=no,user-scalable=no,minimal-ui,viewport-fit=cover">
+    <meta aframe-injected="" name="mobile-web-app-capable" content="yes">
+    <meta aframe-injected="" name="theme-color" content="white">
+    <script src="https://aframe.io/aframe/dist/aframe-master.min.js"></script>
+<script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+<!--    <script src="https://supermedium.com/superframe/components/animation/dist/aframe-animation-component.min.js"></script>
+ --><!--     <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script>
+ --><!--     <script src="https://rawgit.com/Ctrl-Alt-Zen/aframe-mobile-controls/master/components/twoway-motion/twoway-motion.js"></script>  -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-181580966-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-181580966-1');
+</script>
+
+ </head>
+ <body>
+   <a-scene background="#999999" inspector keyboard-shortcuts screenshot vr-mode-ui device-orientation-permission-ui>
+    <a-assets>
+        <a-asset-item id="main3d" src="../assets/3d/earth/earth.gltf"></a-asset-item>
+    </a-assets>
+    <a-camera id="default_angle" camera position="0 1.6 0" look-controls wasd-controls>
+
+        <a-entity id="mouseCursor" cursor="fuse: true; fuseTimeout: 1000"
+            raycaster="objects: .clickable"
+            position="0 0 -1"
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+            material="color: white; shader: flat; opacity: 0.8"
+            animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 1000; from: 1 1 1; to: 0.5 0.5 0.5"
+            animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInCubic; dur: 200; to: 1 1 1"
+            animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 200; to: 1 1 1"
+            >
+        </a-entity>
+    </a-camera>
+
+    <a-sky color="#333333" src="../assets/spacebg.jpg" ></a-sky>
+    <a-gltf-model disabled src="#main3d" scale="2 2 2" position="0 1.6 -2"
+    animation__scale="delay: 2000; property: scale; from: 2 2 2; to: 0.8 0.8 0.8; dur: 1500; autoplay: true;"
+    animation__rotation="property: rotation; from: 23 360 23; to: 23 0 23; dur: 15000; autoplay: true; loop:1000; easing: linear"
+    animation-mixer=""
+    >
+<!--         <a-animation autoplay easing="ease-in" attribute="scale" fill="backwards" from="2 2 2" to="0.5 0.5 0.5" dur="1500"></a-animation>
+        <a-animation autoplay easing="ease-in" attribute="rotation" from="2 2 2" to="0.5 0.5 0.5" dur="1500"></a-animation>
+ -->
+    </a-gltf-model>
+
+    <a-entity id="hotspots" rotation="0">
+        <a-sphere class="clickable" id="hotspot1" material="transparent: true; opacity: 0" position = "0.3 1.7 -1.7" radius = "0.1" color="#ff0000"
+            event-set__enter="_event: mouseenter;"
+            event-set__leave="_event: mouseleave;">
+        </a-sphere>
+        <a-sphere class="clickable" id="hotspot2" material="transparent: true; opacity: 0" position = "-0.2 -1.4 -1.6" radius = "0.1" color="#ffff00" 
+            event-set__enter="_event: mouseenter;"
+            event-set__leave="_event: mouseleave;">
+        </a-sphere>
+    </a-entity>
+    <a-entity id="controls">
+        <a-plane width="0.6" height="2" color="#629632" position="-2 1.6 -3" rotation="0 45 0">
+<!--             <a-image class="clickable" id="back" src="images/back.png" position="0 1 0.1" scale="0.4 0.4 0.4"></a-image> -->
+            <a-image class="clickable" id="help" src="images/help.png" position="0 0.5 0.1" scale="0.4 0.4 0.4"></a-image>
+            <a-image class="clickable" id="exit" src="images/exit.png" position="0 -0.5 0.1" scale="0.4 0.4 0.4"></a-image>
+        </a-plane>
+        <a-entity id="instructions" position="0 1.6 0" visible="false">
+            <a-image src="images/modalbg.png" position="0 0 -1" width="1.5" height="0.8">
+                <a-text value="Look around and position the ring over the cell parts you want to inspect" wrap-count="60" color="#ffffff" transparent="false" scale="0.25 0.25"
+                align="center"></a-text>
+            </a-image>
+            <a-image src="images/blank.png" class="clickable" id="close_instructions" width="0.1" height="0.1" position="0.62 -0.28 -0.99"></a-image>
+        </a-entity>
+        <a-entity id="panel" visible="false" position="0 1.2 -1" rotation="-30 0 0">
+            <a-image src="images/panel.png" width="1.5" height="0.2">
+                <a-text value="Mitochondria are membrane-bound cell organelles that generate most of the chemical energy needed to power the cell's biochemical reactions" transparent="false" align="left" position="-0.18 -0.01 0.01" width="0.75" height="0.13" ></a-text>
+                <a-text value="You found something!" transparent="false" align="left" position="-0.6 0.01 0.01 " width="0.70" height="0.13" ></a-text>
+                <a-text value="(read and close to earn points)" transparent="false" align="left" position="-0.6 -0.05 0.01 " width="0.45" height="0.13" ></a-text>
+            </a-image>
+            <a-image src="images/blank.png" class="clickable" id="close_panel" width="0.1" height="0.1" position="0.58 0.05 0.01"></a-image>
+        </a-entity>
+        <a-entity id="score" position="0.75 2.1 0" visible="true">
+            <a-image src="images/points.png" position="0 0 -1" width="0.3" height="0.1">
+                <a-text value="999" color="#ffffff" transparent="false" scale="0.25 0.25"></a-text>
+            </a-image>
+        </a-entity>
+    </a-entity>
+   </a-scene>
+<script>
+var panelState=false;
+var score=100;
+document.querySelector('#score a-image a-text').setAttribute('value',score);
+
+document.querySelector('#hotspot1').addEventListener('click',function(e){
+    document.querySelector('#panel').setAttribute('visible','true');
+})
+document.querySelector('#hotspot2').addEventListener('click',function(e){
+    document.querySelector('#panel').setAttribute('visible','true');
+})
+document.querySelector('#help').addEventListener('click',function(e){
+    document.querySelector('#instructions').setAttribute('visible','true');
+})
+document.querySelector('#exit').addEventListener('click',function(e){
+    console.log(this);
+    location.href="index.html#dashboard";
+})
+document.querySelector('#close_panel').addEventListener('click',function(e){
+    document.querySelector('#panel').setAttribute('visible','false');
+    changeScore(10);
+})
+document.querySelector('#close_instructions').addEventListener('click',function(e){
+    document.querySelector('#instructions').setAttribute('visible','false');
+})
+function changeScore(to){
+    score+=parseInt(to);
+    document.querySelector('#score a-image a-text').setAttribute('value',score);
+}
+
+</script>
+
+ </body>
+</html>

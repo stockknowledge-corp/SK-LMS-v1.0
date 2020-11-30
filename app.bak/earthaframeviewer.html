@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<meta name = "viewport" content = "user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+<link rel="icon" 
+      type="image/png" 
+      href="assets/images/favicon-32x32.png">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="apple-touch-icon" href="images/icon.png" />
+<meta name="format-detection" content="telephone=no" />
+<script type="text/javascript">
+window.scrollTo(0,1);
+</script>
+
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <!-- we import arjs version without NFT but with marker + location based support -->
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <body style="margin : 0px; overflow: hidden;">
+    <a-scene embedded arjs>
+      <a-marker preset="hiro">
+        <a-entity
+          position="0 0 0"
+          scale="1 1 1" 
+          radius=".5"
+          gltf-model="3d/earth/earth.gltf"
+          auto rotate 
+          camera-controls
+        ></a-entity>
+      </a-marker>
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>
