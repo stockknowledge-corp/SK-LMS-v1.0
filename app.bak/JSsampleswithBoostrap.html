@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name = "viewport" content = "user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+<link rel="icon" 
+      type="image/png" 
+      href="assets/images/favicon-32x32.png">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="apple-touch-icon" href="images/icon.png" />
+<meta name="format-detection" content="telephone=no" />
+<script type="text/javascript">
+window.scrollTo(0,1);
+</script>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
+    
+	<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <title>JSBootstrapSamples</title>
+
+</head>
+<body>
+<div id="viewport">
+
+    <table class="table">
+        <thead class = "thead-dark">
+          <tr></tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+            <th scope="col">Handle</th>
+          </tr>
+        </thead>
+        <tbody id = "jsonTable">
+        </tbody>
+      </table>
+
+      <h1 id = "text">
+      </h1>
+	<!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" style="position: relative; left: 100px; top: 300px;">
+        Launch Modal
+    </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-center" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Stock Knowledge</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id = "modal-body">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quibusdam nobis labore harum iure aliquid quia repudiandae alias minus inventore ipsam maxime odit veniam culpa, magni quisquam quod. Itaque, natus reiciendis.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script>
+            var myArray = [
+        {
+            "subject": "biology",
+            "chapter": "1.1",
+            "title": "The Cell",
+            "description": "Description goes here",
+            "background": "green.jpg",
+            "mode": 1,
+            "gradelevel": "11",
+            "content": "The content goes here",
+            "modecontent": {
+            "3dfile": "cell.glb",
+            "instructions": "tap each part to show description",
+            "hotspots": [
+                {
+                "coordinates": "1,1,1",
+                "description": "cell part 1"
+                },
+                {
+                "coordinates": "1,2,2",
+                "description": "cell part 2"
+                },
+                {
+                "coordinates": "2,3,1",
+                "description": "cell part 3"
+                }
+            ]
+            }
+        },
+        {
+            "subject": "biology",
+            "chapter": "1.2",
+            "title": "The Cell 2",
+            "description": "Description goes here",
+            "background": "green.jpg",
+            "mode": 1,
+            "gradelevel": "1",
+            "content": "The content goes here",
+            "modecontent": {
+            "3dfile": "cell2.glb",
+            "instructions": "tap each part to show description",
+            "hotspots": [
+                {
+                "coordinates": "1,1,1",
+                "description": "cell part 1"
+                },
+                {
+                "coordinates": "1,2,2",
+                "description": "cell part 2"
+                },
+                {
+                "coordinates": "2,3,1",
+                "description": "cell part 3"
+                }
+            ]
+            }
+        }
+        ]
+
+        var x = myArray[0].subject + "<br>" + myArray[0].chapter + "<br>" + myArray[0].title + "<br>" + myArray[0].description + "<br>" + myArray[0].background
+                + "<br>" + myArray[0].mode + "<br>" + myArray[0].gradelevel + "<br>" + myArray[0].content + "<br>" + myArray[0].modecontent.instructions + "<br>" +  myArray[0].modecontent["3dfile"] + "<br>"
+                + myArray[0].modecontent.hotspots[0].coordinates  + "<br>" + myArray[0].modecontent.hotspots[1].coordinates + "<br>"  + myArray[0].modecontent.hotspots[2].coordinates + "<br>"  ;
+
+
+        var title = myArray[0].subject;
+        var content = myArray[0].content;
+
+        //console.log(content);
+
+        document.getElementById("text").innerHTML = x;
+        document.getElementById("exampleModalLongTitle").innerHTML = title;
+        document.getElementById("modal-body").innerHTML = content;
+
+
+        buildTable(myArray)
+
+        function buildTable(data)
+        {
+            var table = document.getElementById('jsonTable')
+
+            for(var i = 0; i < data.length; i++)
+            {
+                var row = `<tr>
+                                <td>${data[i].subject}</td>
+                                <td>${data[i].chapter}</td>
+                                <td>${data[i].title}</td>
+                                <td>${data[i].content}</td>
+                                <td>${data[i].modecontent.hotspots[2].coordinates}</td>
+                        </tr>`
+                table.innerHTML += row
+            }
+        }
+</script>
+<script type="text/javascript" src = "js/app.js"></script>
+</body>
+</html>

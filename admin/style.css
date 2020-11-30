@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+body{
+	background: rgb(163,142,243);
+	background: linear-gradient(214deg, rgba(163,142,243,1) 0%, rgba(95,181,222,1) 50%, rgba(49,206,213,1) 100%);
+	min-height: 100vh;
+	width: 100%;
+	font-family: 'Lato', sans-serif;
+	font-size: 20px;
+	line-height: 30px;
+}
+img{
+	max-width: 100%;
+}
+.container-fluid>.row>div{
+	min-height: calc(100vh - 100px);
+}
+#header>div{
+	min-height: unset;
+}
+#main-container{
+	min-height: calc(100vh - 135px);
+	background: rgba(255,255,255,0.9);
+	border-radius: 20px;
+}
+#main{
+	padding: 20px;
+
+}
+#logo img{
+	height: 100px;
+}
+#sidebar ul{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	padding-left: 20px;
+	margin-top: 20px;
+}
+#sidebar ul li a{
+	color: #ffffff;
+}
+
+#main table th, #main table td {
+	padding: 5px 10px;
+	font-size: 20px;
+    vertical-align: top;
+}
+.crud{
+	/*display: none;*/
+}
+
+body.sk_modes tr th:nth-child(3), body.sk_modes tr td:nth-child(3){
+	display: none;
+}
+.btn{
+	font-size: 20px;
+	margin: 0 10px 10px
+}
+table{
+	width: 100%;
+}
+table.list tr:first-child{
+	background-color: #4582ec;
+	color: #ffffff;
+}
+table.list tr:first-child a{
+	color: #ffffff;
+}
+#flash{
+    background: #f0ad4e;
+    border-radius: 20px;
+    padding: 20px;
+    position: absolute;
+    z-index: 1;
+    right: 20px;
+    top: 20px;
+    color: #ffffff;
+}
+.delete #main a{
+	display: block;
+}
+textarea[name="mode_content"]{
+	display:none;
+}
+
+.mobile-menu-container {
+  display: inline-block;
+  cursor: pointer;
+  display: none;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+}
+
+.bar1, .bar2, .bar3 {
+  width: 35px;
+  height: 5px;
+  background-color: #ffffff;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+.change .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+  transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+  -webkit-transform: rotate(45deg) translate(-8px, -8px);
+  transform: rotate(45deg) translate(-8px, -8px);
+}
+input, textarea{
+	width: 100%;
+}
+select{
+	width: 80%;
+	margin-right: 20px;
+}
+input[type=file]{
+	width: 80%;
+}
+.btn{
+	width: unset;
+}
+
+/*.new tr{
+	border-bottom: 1px solid #cccccc;
+	border-top: 1px solid #cccccc;
+	padding: 10px 0;
+}*/
+
+tr:hover{
+	background: rgba(2,184,117,0.1);
+}
+#hotspots input{
+	width: 40%;
+}
+/*#hotspots .description{
+	width: 40%;
+}*/
+
+#copyright{
+	/*color: #ffffff;*/
+}
+#login-error, #registration-error, #edit-error{
+	color: #ff0000;
+}
+@media only screen and (max-width: 980px) {
+#logo img {
+    height: unset;
+}
+.mobile-menu-container {
+  display: inline-block;
+}
+#sidebar{
+	/*display: none;*/
+	max-height: 0;
+	min-height: unset;
+	transition: all 500ms ease;
+	margin-bottom: 20px;
+	min-width: 98%;
+	opacity: 0;
+}
+#sidebar li{
+	text-align: right;
+	width: 100%
+}
+.container-fluid>.row:nth-child(2)>div:nth-child(2){
+    width: 100% !important;
+    max-width: unset !important;
+    flex: auto;
+}
+#sidebar.visible{
+	max-height: 100vh;
+	/*display: block;*/
+	opacity: 1;
+}
+.list th, .list td{
+	display: none;
+}
+.list th:nth-child(1), .list td:nth-child(1),
+.list th:nth-child(2), .list td:nth-child(2),
+.list th:nth-child(3), .list td:nth-child(3),
+.list th:last-child, .list td:last-child{
+	display: table-cell;
+}
+
+
+
+}

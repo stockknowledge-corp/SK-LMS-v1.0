@@ -1,0 +1,43 @@
+<?php
+$home_url = 'http://54.151.186.180/admin';
+$heading = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$heading = str_replace($home_url.'/', '', $heading);
+$headingArr = explode('/',$heading);
+$heading = str_replace('sk_','',$headingArr[0]);
+$heading = str_replace('_',' ',$heading);
+if(isset($headingArr[1])){
+	if($headingArr[1]!='list.php') $heading.=' >> '.ucwords(str_replace('.php','',$headingArr[1]));
+}
+$heading = explode('?',$heading);
+$heading = ucwords($heading[0]);
+?>
+
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name = "viewport" content = "user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+
+
+<!-- Bootstrap CSS --> <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.css"> <link 
+rel="stylesheet" type="text/css" media="screen" href="<?php echo $home_url;?>/style.css" /> <link 
+rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" 
+integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="icon" 
+
+      type="image/png" 
+
+      href="images/favicon-32x32.png">
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+<link rel="apple-touch-icon" href="images/icon.png" />
+
+<meta name="format-detection" content="telephone=no" />
+
+<script type="text/javascript">
+
+window.scrollTo(0,1);
+
+</script>
+

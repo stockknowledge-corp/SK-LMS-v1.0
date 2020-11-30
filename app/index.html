@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+	<link rel="icon" type="image/png" href="images/favicon-16x16.png">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<link rel="apple-touch-icon" href="images/favicon-32x32.png" />
+	<meta name="format-detection" content="telephone=no" />
+	<script type="text/javascript">
+	window.scrollTo(0,1);
+	</script>
+	<title>SK Mobile App</title>
+	<link rel="stylesheet" href="normalize.css">
+	<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+	<script src="../admin/zxcvbn.js"></script>
+	<link rel="manifest" href="manifest.json">
+	<script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwainstall"></script>
+	<script src="https://aframe.io/aframe/dist/aframe-master.min.js"></script>
+
+
+<!--     <script src="https://aframe.io/aframe/dist/aframe-master.min.js"></script>
+ <script>
+      AFRAME.registerComponent("overlay", {
+        dependencies: ['material'],
+        init: function () {
+          this.el.sceneEl.renderer.sortObjects = true;
+          this.el.object3D.renderOrder = 100;
+          this.el.components.material.material.depthTest = false;
+        }
+      });
+    
+    </script>
+ -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-181580966-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-181580966-1');
+</script>
+
+</head>
+<body>
+<div id="start">
+	<div id="header" class="animate__animated animate__bounce"><img src="images/logo.png"></div>
+	<div id="hero" class="animate__animated animate__fadeInDown"><img src="images/hero.png"></div>
+	<div id="content">
+		<div id="content-start" class="content text-center">
+			<h1 id="title">Learn With Us!</h1>
+			<p id="subtitle"> We help you achieve your goals by making your learning more fun and creative. </p>
+			<button id="getstarted-btn" onclick="startProcess('#content-registration1')" class="btn-outline">Get Started</button>
+			<button id="login-btn" onclick="startProcess('#content-login')" class="btn-primary">Login</button>
+		</div>
+		<div id="content-registration1">
+			<a href="javascript:void(0);" onclick="startProcess('#content-start')"><i class="fa fa-arrow-circle-left arrow"></i></a>
+			<div class="content">
+				<h1 id="welcome">Welcome!</h1>
+				<p id="welcome-sub">Tell us about yourself</p>
+					<input type="text" id="registerusername" placeholder="Username" value="">
+					<input type="text" id="registerfn" placeholder="First Name" value="">
+					<input type="text" id="registerln" placeholder="Last Name" value="">
+					<input type="text" id="email" placeholder="Email address" value="">
+					<input type="text" id="mobile" placeholder="Mobile number" value="">
+					<div id="pw-score"></div>
+					<input type="password" id="registerpassword" placeholder="Password" value="" onkeyup="assess()" >
+					<input type="password" id="registerpassword2" placeholder="Confirm Password" value="">
+					<input type="hidden" name="pw-strength" id="pw-strength" value="">
+
+					<input type="text" id="registerschool" placeholder="School" value="">
+					<input type="text" id="gradelevel" placeholder="Grade Level" value="">
+					<div id="registererror"></div>
+					<!-- <select id="registrationTypeOfSchool">
+						<option value="0" id="juniorselectiontext">Type of School</option>
+						<option value="1">Public</option>
+						<option value="2">Private</option>
+					</select> -->
+<!-- 					<button id="registerProceed" class="btn-primary" onclick="startProcess('#content-registration2')">Proceed</button> -->
+				<button disabled="true" style="opacity: 0.8" id="finishCreateAccount" class="btn-primary" onclick="showLoader('Registration Started', 5000);register()">Create Account</button>
+
+	        </div>
+	    </div>
+		<div id="content-registration2">
+			<a href="javascript:void(0);" onclick="startProcess('#content-registration1')"><i class="fa fa-arrow-circle-left arrow"></i></a>
+			<div class="content">
+				<h1 id="welcome">You are about to Finish!</h1>
+				<p id="finish-welcome-sub">Share with us your goal</p>
+				<textarea name="" id="finish-goal" rows="10" placeholder="Sharing with us your goal will help us know you better!"></textarea>
+				<button id="finishCreateAccount" class="btn-primary" onclick="startProcess('#content-registration3')">Create Account</button>
+			</div>
+    	</div>
+		<div id="content-registration3">
+			<div id="selectlevelready"> 
+			Ready to see the right subjects for you?
+			</div>
+			<div class="content">
+				<div id="selectlevelrectangle">
+					<div>
+					<h1 id="selectlevel">Select Level</h1>
+					</div>
+					<div>
+				        <select id="juniorselection">
+				            <option value="0" id="juniorselectiontext">Junior High School</option>
+				            <option value="1">Grade 7</option>
+				            <option value="2">Grade 8</option>
+				            <option value="3">Grade 9</option>
+				            <option value="4">Grade 10</option>
+				          </select>
+				    </div>
+				    <div>
+				        <select id="seniorselection">
+				            <option value="0">Senior High School</option>
+				            <option value="1">Grade 11</option>
+				            <option value="2">Grade 12</option>
+				          </select>
+				    </div>
+				    <div>
+				        <button id ="levelsubmit" class="btn-primary" onclick="changeScreen('#dashboard');dashTabs('#dash-home'); showLoader('Loading dashboard', 2000);">Submit</button>	
+				    </div>
+				</div>
+			</div>
+		</div>
+		<div id="content-login">
+			<a href="javascript:void(0);" onclick="startProcess('#content-start')"><i class="fa fa-arrow-circle-left arrow"></i></a>
+			<div class="content">
+				<div id="loginrectangle">
+					<div>
+					<h1 id = "welcome">Welcome!</h1>
+					<p id = "welcome-sub"> Let's make your learning more fun </p>
+					</div>
+					<div>
+				        <input type="text" id="login-username" placeholder="Username" value="">
+				        <input type="password" id="login-password" placeholder="Password" value="">
+				        <div id="loginerror"></div>
+<!-- 				        <label><input type="checkbox" id ="login-keep" value="yes"> Keep me logged in</label> -->
+				        <button id ="login" class="btn-primary" onclick="showLoader('Logging you in', 5000);login()">Login</button>	
+					</div>
+<!-- 					<div id ="forgotpassword">
+						<a href="#">Forgot Password?</a>
+					</div> -->
+					<div id ="terms">
+						<a href ="javascript:void(0);" onclick="startProcess('#content-tou')">See Terms of Use & Privacy Policy</a>
+					</div>
+				</div>
+			</div>
+    	</div>
+    	<div id="content-tou">
+			<a href="javascript:void(0);" onclick="startProcess('#content-login')"><i class="fa fa-arrow-circle-left arrow"></i></a>
+			<div class="content">
+				<h2>Click on the links to read more.</h2>
+				<a href="https://stockknowledge.org/terms.html">Terms of Use</a><br>
+				<a href="https://stockknowledge.org/privacy.html">Privacy Policy</a>
+			</div>
+    	</div>
+	</div>
+</div>
+<div id="dashboard">
+	<div id="dash-menu">
+		<div id="mini-profile">
+			<div id="mini-avatar"><img src="images/avatar.png"></div>
+			<div id="mini-name">Welcome back! 
+				<div id="mini-name-name"></div>
+				<div id="mini-name-stars"><i class="fa fa-star" aria-hidden="true"></i> 0</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+        <div class="mobile-menu-container" onclick="menuToggle(this)">
+          <div class="bar1"></div>
+          <div class="bar2"></div>
+          <div class="bar3"></div>
+        </div>
+
+		<ul>
+			<hr>
+			<li><a href="javascript:void(0);" onclick="dashTabs('#dash-home');"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+			<li><a href="javascript:void(0);" onclick="dashTabs('#dash-profile');"><i class="fa fa-user" aria-hidden="true"></i> Profile</a></li>
+			<li><a href="javascript:void(0);" onclick="dashTabs('#dash-leaderboards');"><i class="fa fa-trophy" aria-hidden="true"></i> Leaderboards</a></li>
+			<li><a href="javascript:void(0);" onclick="dashTabs('#dash-notifications',this);"><i class="fa fa-bell" aria-hidden="true"></i> Notifications</a></li>
+			<hr>
+			<li><a href="javascript:void(0);" onclick="dashTabs('#dash-settings');"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a></li>
+			<li><a href="javascript:void(0);" onclick="dashTabs('#dash-help');"><i class="fa fa-question-circle" aria-hidden="true"></i> Help</a></li>
+			<li><a href="javascript:void(0);" onclick="dashTabs('#dash-logout');"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+			<li><button onclick="ref.openPrompt()">Install APP</button>  
+				<pwa-install style="position: absolute;top:-100px;" id="installComponent"></pwa-install>
+				  <script async defer>
+				    const ref = document.getElementById("installComponent");
+				    // ref.getInstalledStatus();
+				    ref.usecustom=true;
+				  </script>
+			</li>
+		</ul>
+	</div>
+	<div id="dash-content">
+		<div id="dash-home">
+			<div id="search">
+				<input type="text" placeholder="Quick search...">
+				<i class="fa fa-search" aria-hidden="true"></i>
+				<div class="clear"></div>
+			</div>
+			<div id="latestTopics">
+				<h1>Latest Topics <span class="small">(all subjects)</span></h1>
+				<div id="latestTopics-content"></div>
+			</div>
+		</div>
+		<div id="dash-subject">
+			<div id="latestTopics">
+				<h1>Latest Topics in Biology<span class="small"></span></h1>
+
+			</div>
+		</div>
+		<div id="dash-profile">
+			<h1>Profile</h1>
+			<input type="text" id="registerfnsn" placeholder="FirstName, Surname" value="">
+			<input type="password" id="registerpasswordreg" placeholder="Password" value="">
+			<input type="text" id="registerschoolreg" placeholder="School" value="">
+			<select id="registrationTypeOfSchool">
+				<option value="0" id="juniorselectiontext">Type of School</option>
+				<option value="1">Public</option>
+				<option value="2">Private</option>
+			</select>
+			<div>
+		        <select id="gradeselection">
+		            <option value="1">Grade 7</option>
+		            <option value="2">Grade 8</option>
+		            <option value="3">Grade 9</option>
+		            <option value="4">Grade 10</option>
+		            <option value="1">Grade 11</option>
+		            <option value="2">Grade 12</option>
+		          </select>
+		    </div>
+
+			<button id="registerProceed" class="btn-primary" onclick="">Save</button>
+
+		</div>
+		<div id="dash-leaderboards">
+			<h1>Leaderboards</h1>
+			<div id="Leaderboard-content"></div>
+		</div>
+		<div id="dash-notifications">
+			<h1>Notifications</h1>
+		</div>
+		<div id="dash-settings">
+			<h1>Settings</h1>
+		</div>
+		<div id="dash-help">
+			<h1>Help</h1>
+		</div>
+		<div id="dash-logout">
+			<h1>Logout</h1>
+			<button id="getstarted-btn" onclick="logout()" class="btn-outline">Yes, Log me out.</button>
+			<button id="login-btn" onclick="dashTabs('#dash-home');" class="btn-primary">No, I want to keep learning.</button>
+
+		</div>
+	</div>
+</div>
+<div id="mode1" style="width: 100vw;height: 100vh;"><a-scene style="width: 100vw;height: 100vh;" id="mainScene" background="#999999" keyboard-shortcuts screenshot vr-mode-ui device-orientation-permission-ui embedded render-order="default_angle, controls" inspector></a-scene>
+
+</div>
+
+<div id="mode2"></div>
+<div id="mode3"></div>
+<div id="loader"><div id="loader-img"><img src="images/sk-loader.gif"><br><div id="loading-msg">Starting Up</div></div></div>
+<!-- <audio id="game-bg" autoplay controls loop style="display: none;">
+  <source src="audio/game-bg.mp3" type="audio/mpeg">
+</audio> -->
+<script src="helpers.js"></script>
+<script src="main.js"></script>
+<script src="aframe-script.js"></script>
+<script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("service-worker.js");
+      }
+	// showLoader('Updating app...<br>Please check back later.',1000000000000);
+	// document.getElementById('loading-msg').innerHTML='Updating app...<br>Please check back later.';
+	// document.querySelector('#loader').style.display='block';
+
+</script>
+
+</body>
+</html>

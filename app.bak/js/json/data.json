@@ -1,0 +1,58 @@
+﻿[
+  {
+    "subject": "biology",
+    "chapter": "1.1",
+    "title": "The Cell",
+    "description": "Description goes here",
+    "background": "green.jpg",
+    "mode": 1,
+    "gradelevel": "1",
+    "content": "The content goes here",
+    "modecontent": {
+      "3dfile": "cell.glb",
+      "instructions": "tap each part to show description",
+      "hotspots": [
+        {
+          "coordinates": "1,1,1",
+          "description": "cell part 1"
+        },
+        {
+          "coordinates": "1,2,2",
+          "description": "cell part 2"
+        },
+        {
+          "coordinates": "2,3,1",
+          "description": "cell part 3"
+        }
+      ]
+    }
+  },
+  {
+    "subject": "biology",
+    "chapter": "1.2",
+    "title": "The Cell 2",
+    "description": "Description goes here",
+    "background": "green.jpg",
+    "mode": 1,
+    "gradelevel": "1",
+    "content": "The content goes here",
+    "modecontent": {
+      "3dfile": "cell2.glb",
+      "instructions": "tap each part to show description",
+      "hotspots": [
+        {
+          "coordinates": "1,1,1",
+          "description": "cell part 1"
+        },
+        {
+          "coordinates": "1,2,2",
+          "description": "cell part 2"
+        },
+        {
+          "coordinates": "2,3,1",
+          "description": "cell part 3"
+        }
+      ]
+    }
+  }
+]

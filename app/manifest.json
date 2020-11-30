@@ -1,0 +1,28 @@
+{
+  "name": "SK Mobile App",
+  "short_name": "SK Mobile App",
+  "start_url": "/",
+  "display": "standalone",
+  "description": "WebXR implementation of AFrame",
+  "screenshots": [
+    {
+      "src": "images/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ],
+  "features": [
+    "Cross Platform",
+    "WebXR",
+    "LMS"
+  ],
+  "icons": [
+    {
+      "src": "images/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ],
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff"
+}

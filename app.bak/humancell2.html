@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+    <link rel="icon" type="image/png" href="images/favicon-16x16.png">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="apple-touch-icon" href="images/favicon-32x32.png" />
+    <title>SK Mobile App</title>
+
+    <script src="https://aframe.io/aframe/dist/aframe-master.min.js"></script>
+ <script>
+      AFRAME.registerComponent("overlay", {
+        dependencies: ['material'],
+        init: function () {
+          this.el.sceneEl.renderer.sortObjects = true;
+          this.el.object3D.renderOrder = 100;
+          this.el.components.material.material.depthTest = false;
+        }
+      });
+    
+    </script>
+<!--    <script src="https://supermedium.com/superframe/components/animation/dist/aframe-animation-component.min.js"></script>
+ --><!--     <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script>
+ --><!--     <script src="https://rawgit.com/Ctrl-Alt-Zen/aframe-mobile-controls/master/components/twoway-motion/twoway-motion.js"></script>  -->
+ </head>
+ <body>
+   <a-scene id="mainScene" background="#999999" inspector keyboard-shortcuts screenshot vr-mode-ui device-orientation-permission-ui  render-order="default_angle, controls">
+
+   </a-scene>
+<script>
+var panelState=false;
+var score=0;
+
+function changeScore(to){
+    score+=parseInt(to);
+    document.querySelector('#score a-image a-text').setAttribute('value',score);
+}
+function resetCam(){
+    var cam = document.querySelector('#default_angle');
+    cam.setAttribute('animation','property: position; easing: easeInCubic; dur: 1000; to: 0 1.6 0; from:'+cam.getAttribute('animation').to);
+
+}
+
+
+function createScene(){
+
+var entities=`
+    <a-assets>
+        <a-asset-item id="main3d" src="../assets/3d/cell/cell.gltf"></a-asset-item>
+    </a-assets>
+    <a-camera overlay id="default_angle" camera position="0 1.6 0" look-controls wasd-controls>
+
+        <a-entity id="mouseCursor" cursor="fuse: true; fuseTimeout: 1000"
+            raycaster="objects: .clickable"
+            position="0 0 -1"
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+            material="color: white; shader: flat; opacity: 0.8"
+            animation__fusing="property: scale; startEvents: fusing; easing: easeInCubic; dur: 1000; from: 1 1 1; to: 0.5 0.5 0.5"
+            animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInCubic; dur: 200; to: 1 1 1"
+            animation__click="property: scale; startEvents: click; easing: easeInCubic; dur: 200; to: 1 1 1"
+            >
+        </a-entity>
+    </a-camera>
+
+    <a-sky color="#999999" src="../assets/cells.jpg" ></a-sky>
+    <a-gltf-model disabled src="#main3d" scale="0.5 0.5 -1.5" position="0 1.6 -2"
+    animation__scale="property: scale; from: 2 2 2; to: 0.5 0.5 0.5; dur: 1500; autoplay: true;"
+    animation__rotation="property: rotation; from: 0 -180 0; to: 0 0 0; dur: 1500; autoplay: true;"
+    >
+<!--         <a-animation autoplay easing="ease-in" attribute="scale" fill="backwards" from="2 2 2" to="0.5 0.5 0.5" dur="1500"></a-animation>
+        <a-animation autoplay easing="ease-in" attribute="rotation" from="2 2 2" to="0.5 0.5 0.5" dur="1500"></a-animation>
+ -->
+    </a-gltf-model>
+
+    <a-entity id="hotspots" rotation="0">
+        <a-sphere class="clickable" id="mitochondrion" material="transparent: true; opacity: 0" position = "0.3 1.7 -1.7" radius = "0.1" color="#ff0000">
+        </a-sphere>
+        <a-sphere class="clickable" id="membrane" material="transparent: true; opacity: 0" position = "-0.26 1.92 -1.5" radius = "0.1" color="#ffff00" >
+        </a-sphere>
+        <a-sphere class="clickable" id="golgi" material="transparent: true; opacity: 0" position = "0.18 1.51 -1.61" radius = "0.1" color="#ffffff" >
+        </a-sphere>
+        <a-sphere class="clickable" id="vacuole" material="transparent: true; opacity: 0" position = "-0.21 1.58 -1.5" radius = "0.1" color="#00ffff" >
+        </a-sphere>
+        <a-sphere class="clickable" id="cytoplasm" material="transparent: true; opacity: 0" position = "-0.01 1.33 -1.5" radius = "0.1" color="#0000ff" >
+        </a-sphere>
+    </a-entity>
+    <a-entity id="controls" overlay>
+        <a-plane width="0.6" height="2" color="#629632" position="-2 1.6 -3" rotation="0 45 0">
+<!--             <a-image class="clickable" id="back" src="images/back.png" position="0 1 0.1" scale="0.4 0.4 0.4"></a-image> -->
+            <a-image class="clickable" id="help" src="images/help.png" position="0 0.5 0.1" scale="0.4 0.4 0.4"></a-image>
+            <a-image class="clickable" id="exit" src="images/exit.png" position="0 -0.5 0.1" scale="0.4 0.4 0.4"></a-image>
+        </a-plane>
+        <a-entity id="instructions" position="0 1.6 0" visible="false">
+            <a-image src="images/modalbg.png" position="0 0 -1" width="1.5" height="0.8">
+                <a-text value="Look around and position the ring over the cell parts you want to inspect" wrap-count="60" color="#ffffff" transparent="false" scale="0.25 0.25"
+                align="center"></a-text>
+            </a-image>
+            <a-image src="images/blank.png" class="clickable" id="close_instructions" width="0.1" height="0.1" position="0.62 -0.28 -0.99"></a-image>
+        </a-entity>
+        <a-entity id="panel" visible="false" position="0 1.2 -1" rotation="-30 0 0">
+            <a-image src="images/panel.png" width="1.5" height="0.2">
+                <a-text id="description" value="" transparent="false" align="left" position="-0.18 -0.01 0.01" width="0.75" height="0.13" ></a-text>
+                <a-text value="You found something!" transparent="false" align="left" position="-0.6 0.01 0.01 " width="0.70" height="0.13" ></a-text>
+                <a-text value="(read and close to earn points)" transparent="false" align="left" position="-0.6 -0.05 0.01 " width="0.45" height="0.13" ></a-text>
+            </a-image>
+            <a-image src="images/blank.png" class="clickable" id="close_panel" width="0.1" height="0.1" position="0.58 0.05 -0.01"></a-image>
+        </a-entity>
+        <a-entity id="score" position="0.75 2.1 0" visible="true">
+            <a-image src="images/points.png" position="0 0 -1" width="0.3" height="0.1">
+                <a-text value="999" color="#ffffff" transparent="false" scale="0.25 0.25"></a-text>
+            </a-image>
+        </a-entity>
+    </a-entity>
+`;
+
+
+
+var stringToHTML = function (str) {
+    var dom = document.createElement('a-scene');
+    dom.innerHTML = str;
+    return dom;
+
+};
+
+var htmlObject = stringToHTML(entities); // jquery call
+document.querySelector('#mainScene').appendChild(htmlObject);
+// document.querySelector('#mainScene').reload();
+
+
+
+
+document.querySelector('#score a-image a-text').setAttribute('value',score);
+
+document.querySelector('#mitochondrion').addEventListener('click',function(e){
+    if(!panelState){
+        var note = 'Mitochondrion - A spherical to rod-shaped organelles with a double membrane.';
+    document.querySelector('#panel').setAttribute('visible','true');
+    document.querySelector('#description').setAttribute('value',note);
+    panelState = true;
+
+    var cam = document.querySelector('#default_angle');
+    var pos = document.querySelector('#mitochondrion').getAttribute('position');
+    cam.setAttribute('animation','property: position; easing: easeInCubic; dur: 1000; from: 0 1.6 0; to: '+pos.x+' '+pos.y+' '+pos.z);
+    // var utterance = new SpeechSynthesisUtterance();
+    // utterance.text = note;
+    // utterance.lang = 'en-US';
+    // utterance.rate = 1.2;
+    // utterance.onend = resetCam();
+    var msg = new SpeechSynthesisUtterance();
+    msg.text = note;
+    // msg.lang = 'en-US';
+    msg.rate = 1.2;
+    msg.onend = function(){resetCam()};
+
+    window.speechSynthesis.speak(msg);
+}
+});
+document.querySelector('#membrane').addEventListener('click',function(e){
+    if(!panelState){
+    document.querySelector('#panel').setAttribute('visible','true');
+    document.querySelector('#description').setAttribute('value','Cell Membrane - A the thin layer of protein and fat that surrounds the cell.');
+    panelState = true;
+}
+});
+document.querySelector('#vacuole').addEventListener('click',function(e){
+    if(!panelState){
+    document.querySelector('#panel').setAttribute('visible','true');
+    document.querySelector('#description').setAttribute('value','Vacuole - A fluid-filled, membrane-surrounded cavities inside a cell');
+    panelState = true;
+}
+});
+document.querySelector('#golgi').addEventListener('click',function(e){
+    if(!panelState){
+    document.querySelector('#panel').setAttribute('visible','true');
+    document.querySelector('#description').setAttribute('value','Golgi body - A flattened, layered, sac-like organelle that looks like a stack of pancakes.');
+    panelState = true;
+}
+});
+document.querySelector('#cytoplasm').addEventListener('click',function(e){
+    if(!panelState){
+    document.querySelector('#panel').setAttribute('visible','true');
+    document.querySelector('#description').setAttribute('value','Cytoplasm - The jellylike material outside the cell nucleus in which the organelles are located.');
+    panelState = true;
+}
+});
+
+
+document.querySelector('#help').addEventListener('click',function(e){
+    document.querySelector('#instructions').setAttribute('visible','true');
+})
+document.querySelector('#exit').addEventListener('click',function(e){
+    console.log(this);
+    location.href="index.html#dashboard";
+})
+document.querySelector('#close_panel').addEventListener('click',function(e){
+    document.querySelector('#panel').setAttribute('visible','false');
+    changeScore(10);
+    panelState = false;
+    resetCam();
+})
+document.querySelector('#close_instructions').addEventListener('click',function(e){
+    document.querySelector('#instructions').setAttribute('visible','false');
+})
+
+
+
+}
+
+
+</script>
+
+ </body>
+</html>
