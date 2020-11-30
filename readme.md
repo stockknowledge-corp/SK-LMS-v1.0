@@ -10,17 +10,4 @@ Additional shared information across the whole ecosystem are;
 - Additional assets.
 
 # Installation
-## LMS Seed Files and Data
-
-### clone github repo
-git clone -b master https://github.com/Stock-Knowledge-Engineering/aws.git 
-
-### create and seed the database
-cat /admin/stockknowledge.sql | mysql -u root -p$(cat /bitnami_application_password)
-
-### modify the configuration file
-sed -i.bak "s/\"\"/\"$(cat /bitnami_application_password)\"/;" /admin/_conf.dba.inc.php
-
-### modify the home_url
-nano /admin/header.php
-
+https://stock-knowledge-engineering.github.io/documentation/lms-installation-and-docs/
