@@ -92,6 +92,34 @@ textarea[name="mode_content"]{
   right: 30px;
 }
 
+.a-default {
+	color: #333;
+	text-decoration: none;
+}
+
+.a-default:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.a-fb {
+	text-decoration: none;
+	border-radius: 5px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.fb-button-container {
+	padding: 10px;
+	color: #fff;
+	border-radius: 5px;
+	background: #3d6ad6;
+}
+
+.fb-button-container:hover {
+	background: #1D3C78;
+}
+
 .bar1, .bar2, .bar3 {
   width: 35px;
   height: 5px;
