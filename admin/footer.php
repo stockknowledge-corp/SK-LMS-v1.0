@@ -1,4 +1,4 @@
-<div class="text-right small" id="copyright">&copy; 2020. StockKnowledge Corp.</div>
+<div class="text-right small" id="copyright">&copy; 2020. StockKnowledge Corp. | <a href="https://stockknowledge.org/admin/sk_pages/termsofuse.php">Terms of Use</a> | <a href="https://stockknowledge.org/admin/sk_pages/privacypolicy.php">Privacy Policy</a></div>
     </div>
   </div>
 </div>

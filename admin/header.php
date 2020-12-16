@@ -14,8 +14,9 @@ $heading = ucwords($heading[0]);
 $loggedin=false;
 if(isset($_COOKIE['loggedin'])) $loggedin=$_COOKIE['loggedin'];
 if(isset($_COOKIE['usertype'])) $usertype=$_COOKIE['usertype'];
+	// echo $heading;
 
-if($heading != 'Login ' && !$loggedin){
+if($heading != 'Login ' && !$loggedin && strpos($heading,'Pages >>')===false){
 	$URL=$home_url.'/login.php';
 	// echo $heading;
 	// echo $URL;
@@ -49,6 +50,7 @@ if($heading != 'Login ' && !$loggedin){
 <script type="text/javascript">
 
 window.scrollTo(0,1);
+
 
 </script>
 <script src="<?php echo $home_url;?>/zxcvbn.js"></script>

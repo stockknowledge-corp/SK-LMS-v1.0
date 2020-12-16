@@ -132,7 +132,7 @@ document.querySelector('#help').addEventListener('click',function(e){
 })
 document.querySelector('#exit').addEventListener('click',function(e){
     changeScreen('#dashboard');
-    location.reload();
+//    location.reload();
 })
 document.querySelector('#close_panel').addEventListener('click',function(e){
     document.querySelector('#panel').setAttribute('visible','false');
