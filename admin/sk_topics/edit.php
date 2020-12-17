@@ -59,8 +59,13 @@ while($rowi = $dba->fetch_array($results)) {
 </tr>
 <tr>
 	<td>Background</td>
-	<td><textarea name="background"><?= $row['background'] ?></textarea>
-</td>
+	<!-- <td>
+		<textarea name="background"><?= $row['background'] ?></textarea>
+	</td> -->
+	<td>
+		<input type="file" name="background" id="background" onchange="updateModeContent()"><br>
+		<span class="small">(leave blank for no change)</span>
+	</td>
 </tr>
 <tr>
 	<td>Content</td>
@@ -141,6 +146,7 @@ function addHotSpot1(){
 	hotspot++;
 var html=`
 &nbsp;&nbsp;Hotspot #`+hotspot+`:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;title: <input type="text" id="title`+hotspot+`s" class="coordinate" onkeydown="updateModeContent()" onchange="updateModeContent()" onblur="updateModeContent()"><br>
 &nbsp;&nbsp;&nbsp;&nbsp;Coordinate X: <input type="text" id="coordinateX`+hotspot+`" class="coordinate" onkeydown="updateModeContent()" onchange="updateModeContent()" onblur="updateModeContent()"><br>
 &nbsp;&nbsp;&nbsp;&nbsp;Coordinate Y: <input type="text" id="coordinateY`+hotspot+`" class="coordinate" onkeydown="updateModeContent()" onchange="updateModeContent()" onblur="updateModeContent()"><br>
 &nbsp;&nbsp;&nbsp;&nbsp;Coordinate Z: <input type="text" id="coordinateZ`+hotspot+`" class="coordinate" onkeydown="updateModeContent()" onchange="updateModeContent()" onblur="updateModeContent()"><br>
@@ -160,6 +166,7 @@ function addHotSpot2(){
 	hotspot++;
 var html=`
 &nbsp;&nbsp;Hotspot #`+hotspot+`:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;title: <input type="text" id="title`+hotspot+`s" class="coordinate" onkeydown="updateModeContent()" onchange="updateModeContent()" onblur="updateModeContent()"><br>
 &nbsp;&nbsp;&nbsp;&nbsp;Coordinate X Start: <input type="text" id="coordinateX`+hotspot+`s" class="coordinate" onkeydown="updateModeContent()" onchange="updateModeContent()" onblur="updateModeContent()"><br>
 &nbsp;&nbsp;&nbsp;&nbsp;Coordinate Y Start: <input type="text" id="coordinateY`+hotspot+`s" class="coordinate" onkeydown="updateModeContent()" onchange="updateModeContent()" onblur="updateModeContent()"><br>
 &nbsp;&nbsp;&nbsp;&nbsp;Coordinate Z Start: <input type="text" id="coordinateZ`+hotspot+`s" class="coordinate" onkeydown="updateModeContent()" onchange="updateModeContent()" onblur="updateModeContent()"><br>
@@ -178,6 +185,19 @@ window.scrollTo(0,100000000000);
 }
 
 function updateModeContent(){
+var backgroundPath = document.getElementById('background').value;
+console.log(backgroundPath);
+var backgroundName = '';
+
+if (backgroundPath) {
+    var startIndex = (backgroundPath.indexOf('\\') >= 0 ? backgroundPath.lastIndexOf('\\') : backgroundPath.lastIndexOf('/'));
+    backgroundName = backgroundPath.substring(startIndex);
+    if (backgroundName.indexOf('\\') === 0 || backgroundName.indexOf('/') === 0) {
+        backgroundName = backgroundName.substring(1);
+    }
+    // alert(backgroundName);
+}
+if(backgroundName=='') backgroundName=objTemp['background'];
 
 var fullPath = document.getElementById('3dFile').value;
 var filename = '';
@@ -198,6 +218,7 @@ var mode =document.querySelector('select[name=mode_id]').value;
 
 for(var i=1; i<=hotspot; i++){
 	if(mode==1){
+		var title = document.getElementById('title'+i+'s').value;
 		var coordinateX = document.getElementById('coordinateX'+i).value;
 		var coordinateY = document.getElementById('coordinateY'+i).value;
 		var coordinateZ = document.getElementById('coordinateZ'+i).value;
@@ -205,10 +226,11 @@ for(var i=1; i<=hotspot; i++){
 		if(coordinateX==''&&coordinateY==''&&coordinateZ==''&&description==''){
 			// document.querySelector('#hotspots').removeChild(document.querySelector('#hotspot-'+i));
 		} else {
-		hotspotArr[i-1]={"coordinates":coordinateX+","+coordinateY+","+coordinateZ, "description":description};
+		hotspotArr[i-1]={"id": i, "title":title,"coordinates":coordinateX+","+coordinateY+","+coordinateZ, "description":description};
 		}
 	}
 	if(mode==2){
+		var title = document.getElementById('title'+i+'s').value;
 		var coordinateXs = document.getElementById('coordinateX'+i+'s').value;
 		var coordinateYs = document.getElementById('coordinateY'+i+'s').value;
 		var coordinateZs = document.getElementById('coordinateZ'+i+'s').value;
@@ -219,7 +241,7 @@ for(var i=1; i<=hotspot; i++){
 		if(coordinateXs==''&&coordinateYs==''&&coordinateZs==''&&coordinateXe==''&&coordinateYe==''&&coordinateZe==''&&description==''){
 			// document.querySelector('#hotspots').removeChild(document.querySelector('#hotspot-'+i));
 		} else {
-		hotspotArr[i-1]={"coordinatesS":coordinateXs+","+coordinateYs+","+coordinateZs, "coordinatesE":coordinateXe+","+coordinateYe+","+coordinateZe, "description":description};
+		hotspotArr[i-1]={"id": i, "title":title,"coordinatesS":coordinateXs+","+coordinateYs+","+coordinateZs, "coordinatesE":coordinateXe+","+coordinateYe+","+coordinateZe, "description":description};
 		}
 
 
@@ -230,6 +252,7 @@ modecontent = JSON.stringify(objModeContent);
 modecontent = modecontent.replace(/(\r\n|\n|\r)/gm,"");
 document.getElementById('mode_content').value=modecontent;
 
+console.log(objModeContent);
 }
 var objTemp = JSON.parse(document.getElementById('mode_content').value);
 console.log(objTemp);
@@ -239,6 +262,7 @@ for(var i=1; i<=objTemp.hotspots.length; i++){
 	if(mode==1){
 		addHotSpot1();
 		var coords = objTemp.hotspots[i-1].coordinates.split(',');
+		document.getElementById('title'+i+'s').value=objTemp.hotspots[i-1].title;
 		document.getElementById('coordinateX'+i).value=coords[0];
 		document.getElementById('coordinateY'+i).value=coords[1];
 		document.getElementById('coordinateZ'+i).value=coords[2];
@@ -248,6 +272,7 @@ for(var i=1; i<=objTemp.hotspots.length; i++){
 		addHotSpot2()
 		var coordsS = objTemp.hotspots[i-1].coordinatesS.split(',');
 		var coordsE = objTemp.hotspots[i-1].coordinatesE.split(',');
+		document.getElementById('title'+i+'s').value=objTemp.hotspots[i-1].title;
 		document.getElementById('coordinateX'+i+'s').value=coordsS[0];
 		document.getElementById('coordinateY'+i+'s').value=coordsS[1];
 		document.getElementById('coordinateZ'+i+'s').value=coordsS[2];
