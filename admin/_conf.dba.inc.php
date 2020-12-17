@@ -7,7 +7,7 @@ $dba->user = "root";
 $dba->password = "";
 $dba->connect();
 
-$home_url = 'http://localhost/sk/admin';
+$home_url = 'http://localhost/SK-LMS-App/admin';
 
 $loggedin=false;
 $usertype=3;

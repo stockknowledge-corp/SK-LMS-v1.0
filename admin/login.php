@@ -29,7 +29,6 @@ if(isset($_GET['login'])){
 		$loginerror='Invalid Login';
 		$loggedin = false;
 	}
-
 }
 
 $registrationerror='';

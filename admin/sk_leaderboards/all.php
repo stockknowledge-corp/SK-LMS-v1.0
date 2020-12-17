@@ -18,20 +18,40 @@ $order_clause = "";
 $order_link_arg_head = "";
 $order_link_arg = "";
 
-		$order_clause = " ORDER BY progress DESC";
-		$order_link_arg_head = "progress_asc";
-		$order_link_arg = "progress_dsc";
+$order_clause = " ORDER BY progress DESC";
+$order_link_arg_head = "progress_asc";
+$order_link_arg = "progress_dsc";
 
-$query = "SELECT * FROM sk_students".$order_clause." LIMIT ".$offset.",".$list_limit;
-$query_c = "SELECT count(*) FROM sk_students";
+$queryCondition = '';
+
+switch($_COOKIE['usertype']){
+	case 2:
+		$query = "SELECT gradelevel, schoolname FROM sk_teachers WHERE user_id = ".$_COOKIE['loggedin'];
+		$row = $dba->query_first($query);
+
+		$queryCondition = 'WHERE gradelevel = \''.$row['gradelevel'].'\' AND schoolname = \''.$row['schoolname'].'\'';
+		break;
+	case 3:
+		$query = "SELECT gradelevel, schoolname FROM sk_students WHERE user_id = ".$_COOKIE['loggedin'];
+		$row = $dba->query_first($query);
+
+		$queryCondition = 'WHERE gradelevel = \''.$row['gradelevel'].'\' AND schoolname = \''.$row['schoolname'].'\'';
+		break;
+	default:
+}
+
+$query = "SELECT * FROM sk_students ".$queryCondition.$order_clause." LIMIT ".$offset.",".$list_limit;
+$query_c = "SELECT count(*) FROM sk_students ".$queryCondition;
 
 $num = $dba->query_first($query_c);
+
 if($num[0] > 0) { 
 	$num_result_pages = $num[0] / $list_limit;
-} else {
-	$num_result_pages = 1;
-	$query = "SELECT * FROM sk_students";
-}
+} 
+// else {
+// 	$num_result_pages = 1;
+// 	$query = "SELECT * FROM sk_students";
+// }
 $results = $dba->query($query);
 ?>
 <html>

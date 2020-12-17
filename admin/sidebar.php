@@ -36,6 +36,7 @@ if($usertype==1){
 <?php
 if($usertype==2){
   ?>
+        <li><a href="<?php echo $home_url;?>/sk_teachers">Teachers</a></li>
         <li><a href="<?php echo $home_url;?>/sk_students">Students</a></li>
         <li><a href="<?php echo $home_url;?>/sk_subjects">Subjects</a></li>
 <?php } ?>

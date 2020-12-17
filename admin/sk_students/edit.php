@@ -5,6 +5,9 @@ require_once("../_conf.dba.inc.php");
 require_once("../_static.session.inc.php");
 validate_session();
 
+if($_COOKIE['usertype'] == 3)
+	header("Location: http://".$_SERVER['HTTP_HOST']."/SK-LMS-App/admin/sk_pages/401.php");
+
 $query = "SELECT * FROM sk_students WHERE id='".$_REQUEST['id']."' LIMIT 1";
 $result = $dba->query($query);
 $row = $dba->fetch_array($result);
@@ -57,11 +60,20 @@ while($rowi = $dba->fetch_array($results)) {
 	<td><textarea name="preferences"><?= $row['preferences'] ?></textarea>
 </td>
 </tr>
-<tr>
-	<td>Progress</td>
-	<td><textarea name="progress"><?= $row['progress'] ?></textarea>
-</td>
-</tr>
+<?php 
+
+if($_COOKIE['usertype'] == 1)
+	echo '<tr>
+			<td>Progress</td>
+			<td>
+				<textarea name="progress">';
+		  echo	$row['progress'];
+		  echo '</textarea>
+			</td>
+		  </tr>';
+?>
+
+
 
 </table>
 <br />
