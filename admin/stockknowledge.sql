@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2020 at 11:11 AM
+-- Generation Time: Dec 18, 2020 at 04:22 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -177,6 +177,8 @@ CREATE TABLE `sk_progress` (
   `id` int(11) NOT NULL,
   `subject_id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
+  `topic_id` int(11) NOT NULL,
+  `hotspot_id` int(11) NOT NULL,
   `hotspot_title` varchar(255) NOT NULL,
   `points` decimal(11,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -185,12 +187,8 @@ CREATE TABLE `sk_progress` (
 -- Dumping data for table `sk_progress`
 --
 
-INSERT INTO `sk_progress` (`id`, `subject_id`, `student_id`, `hotspot_title`, `points`) VALUES
-(1, 1, 1, 'test', '2.00'),
-(2, 1, 1, 'test2', '2.00'),
-(4, 1, 2, 'test', '1.00'),
-(5, 1, 2, 'test1', '2.00'),
-(6, 1, 2, 'test2', '2.00');
+INSERT INTO `sk_progress` (`id`, `subject_id`, `student_id`, `topic_id`, `hotspot_id`, `hotspot_title`, `points`) VALUES
+(1, 1, 1, 2, 1, 'ad', '1.00');
 
 -- --------------------------------------------------------
 
@@ -432,7 +430,7 @@ ALTER TABLE `sk_modes`
 -- AUTO_INCREMENT for table `sk_progress`
 --
 ALTER TABLE `sk_progress`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `sk_students`
