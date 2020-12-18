@@ -279,29 +279,34 @@ function upload(){
 
 function addPoints(){
   global $dba;
+
   $return ='{"result": "fail"}';
-  if(isset($_POST['userid']) && $_POST['progress']){
-    $currentPoints = 0;
+  
+  if($_POST['userid'] && $_POST['subject_id'] && $_POST['student_id'] && $_POST['topic_id'] && $_POST['hotspot_id'] && $_POST['hotspot_title'] && $_POST['points']){
+    $duplicate = false;
+    $query = 'SELECT * FROM sk_progress WHERE subject_id = '.$_POST['subject_id'].' AND student_id = '.$_POST['student_id'].' AND topic_id ='.$_POST['topic_id'].' AND hotspot_id = '.$_POST['hotspot_id'].' AND hotspot_title = \''.$_POST['hotspot_title'].'\'';
+    $result = $dba->query($query);
+    $rows = $dba->fetch_array($result);
 
-    // //Get student Point
-    // $getStudentQuery = "SELECT progress FROM sk_students WHERE user_id = ".$_POST['userid'].";";
-    // $result = $dba->query($getStudentQuery);
-    // $student = $dba->fetch_array($result);
+    $duplicate = $rows ? true : false;
 
-    // $currentPoints = $student['progress'];
-    $points = $_POST['progress'];
-    $totalPoints = $points;
-    
-    // Update student Point
-    $updateStudentQuery = "UPDATE sk_students SET progress =  ".$totalPoints." WHERE user_id = ".$_POST['userid'].";";
-    $result = $dba->query($updateStudentQuery);
-    $return ='{"result": "success","content":{"points":"'.$totalPoints.'"}}';
+    if(!$duplicate){
+      $query1 = "INSERT INTO sk_progress (subject_id, student_id, topic_id, hotspot_id, hotspot_title, points) VALUES (".mysqli_real_escape_string($dba->link_id, $_POST['subject_id']).", ".mysqli_real_escape_string($dba->link_id, $_POST['student_id']).", ".mysqli_real_escape_string($dba->link_id, $_POST['topic_id']).",".mysqli_real_escape_string($dba->link_id, $_POST['hotspot_id']).", '".mysqli_real_escape_string($dba->link_id, $_POST['hotspot_title'])."', ".mysqli_real_escape_string($dba->link_id, $_POST['points']).");";
+      $dba->query($query1);
 
+      $query2 = "INSERT INTO 
+      sk_history (module,activity,datetime,user_id) 
+      VALUES ('sk_progress', 'Student ID: ".$_POST['student_id']." gained points from Subject ID: ".$_POST['subject_id']." Hotspot: ".$_POST['hotspot_title']."',NOW(), ".$_POST['userid']. ")";
+      $dba->query($query2);
+    }
 
-    $query2 = "INSERT INTO sk_history (module,activity,datetime,user_id) VALUES ('".mysqli_real_escape_string($dba->link_id,'Students')."','".mysqli_real_escape_string($dba->link_id,'Gained points from playing')."',NOW(),'".mysqli_real_escape_string($dba->link_id,$_POST['userid'])."')";
-    $dba->query($query2);
+    //get student total points
+    $query3 = "SELECT SUM(points) AS points FROM sk_progress WHERE student_id = ".$_POST['student_id'];
+    $result = $dba->query($query3);
+    $points = $dba->fetch_array($result)['points'];
 
-  }
+    $return ='{"result": "success","content":"{"points":"'.$points.'"}"}';
+  } 
   echo $return;
 }
 
