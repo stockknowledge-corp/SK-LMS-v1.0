@@ -119,8 +119,8 @@ entities+=`
 
 `;
 var htmlObject = stringToHTML(entities); 
-document.querySelector('#mainScene').innerHTML='';
-document.querySelector('#mainScene').appendChild(htmlObject);
+document.querySelector('#mode1').innerHTML='';
+document.querySelector('#mode1').appendChild(htmlObject);
 //document.querySelector('#mainScene').insertAdjacentHTML('beforeEnd',entities);
 if(getCookie('points')=='NaN') setCookie('points',0,365);
 score=parseInt(getCookie('points'));
