@@ -4,6 +4,9 @@ require_once("../_conf.dba.inc.php");
 require_once("../_static.session.inc.php");
 validate_session();
 
+if($_COOKIE['usertype'] == 3)
+	header("Location: http://".$_SERVER['HTTP_HOST']."/SK-LMS-App/admin/sk_pages/401.php");
+
 if(IsSet($_GET['offset'])) {
 	$offset = $_GET['offset'];
 } else {
@@ -70,8 +73,17 @@ switch($_REQUEST['order']) {
 
 }
 
-$query = "SELECT * FROM sk_history".$order_clause." LIMIT ".$offset.",".$list_limit;
-$query_c = "SELECT count(*) FROM sk_history";
+$queryCondition = '';
+
+if($_COOKIE['usertype'] == 2){
+	$query = 'SELECT gradelevel, schoolname FROM sk_teachers WHERE user_id = '.$_COOKIE['loggedin'];
+	$row = $dba->query_first($query);
+	
+	$queryCondition = 'WHERE schoolname = \''.$row['schoolname'].'\' AND gradelevel = \''.$row['gradelevel'].'\'';
+}
+
+$query = "SELECT * FROM sk_history JOIN sk_students ON sk_students.user_id = sk_history.user_id ".$queryCondition.$order_clause." LIMIT ".$offset.",".$list_limit;
+$query_c = "SELECT count(*) FROM sk_history JOIN sk_students ON sk_students.user_id = sk_history.user_id ".$queryCondition;
 
 $num = $dba->query_first($query_c);
 if($num[0] > 0) { 
