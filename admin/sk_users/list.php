@@ -115,13 +115,35 @@ switch($_REQUEST['order']) {
 
 }
 
-$query = "SELECT * FROM sk_users".$order_clause." LIMIT ".$offset.",".$list_limit;
-$query_c = "SELECT count(*) FROM sk_users";
+$query = '';
+$query_c = '';
+
+switch($_COOKIE['usertype']){
+	case 2:
+		$query = "SELECT schoolname FROM sk_teachers WHERE user_id = ".$_COOKIE['loggedin'];
+		$row = $dba->query_first($query);
+
+		$query = 'SELECT sk_users.id, username, email, mobile, firstname, lastname, usertype FROM `sk_users` WHERE id = '.$_COOKIE['loggedin'].
+		' UNION
+		SELECT sk_users.id, username, email, mobile, firstname, lastname, usertype FROM sk_users JOIN sk_students ON sk_students.user_id = sk_users.id WHERE schoolname = \''.$row['schoolname'].'\'';
+
+		$query_c = 'SELECT count(*) FROM ('.$query.') t';
+		break;
+	case 3:
+		$query = "SELECT * FROM sk_users WHERE id = ".$_COOKIE['loggedin'];
+		$query_c = 'SELECT count(*) FROM sk_users WHERE id = '.$_COOKIE['loggedin'];
+		break;
+	default:
+		$query = "SELECT * FROM sk_users";
+		$query_c = 'SELECT count(*) FROM sk_users';
+		break;
+}
 
 $num = $dba->query_first($query_c);
 if($num[0] > 0) { 
 	$num_result_pages = $num[0] / $list_limit;
-} else {
+} 
+else {
 	$num_result_pages = 1;
 	$query = "SELECT * FROM sk_users";
 }
