@@ -6,7 +6,7 @@ require_once("../_static.session.inc.php");
 validate_session();
 
 if($_COOKIE['usertype'] == 3)
-	header("Location: http://".$_SERVER['HTTP_HOST']."/SK-LMS-App/admin/sk_pages/401.php");
+	header("Location: http://".$_SERVER['HTTP_HOST']."/admin/sk_pages/401.php");
 
 $query = "SELECT * FROM sk_students WHERE id='".$_REQUEST['id']."' LIMIT 1";
 $result = $dba->query($query);
