@@ -6,7 +6,7 @@ validate_session();
 ?>
 <html>
 <head>
-<title>Privacy Policy</title>
+<title>Unauthorized access</title>
 <link rel="stylesheet" type="text/css" media="screen" href="../style.css" />
 <?php include('../header.php');?>
 
@@ -14,8 +14,10 @@ validate_session();
 <body class="tos">
 <?php include('../sidebar.php');?>
 <div id="main-container"><div id="main">
-<h1>Error 401</h1>
+<h1>Unauthorized access...</h1>
 
+</div></div>
 <?php include('../footer.php');?>
+
 </body>
 </html> 

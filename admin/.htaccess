@@ -1,0 +1,3 @@
+ErrorDocument 401 /sk_pages/401.php
+ErrorDocument 404 /sk_pages/404.php
+ErrorDocument 500 /sk_pages/500.php
