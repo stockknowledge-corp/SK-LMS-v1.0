@@ -19,12 +19,12 @@
     	<ul>
         <li><a href="<?php echo $home_url;?>">Home</a></li>
         <li><a href="<?php echo $home_url."/sk_users/edit.php?id=".$loggedin;?>">My Profile</a></li>
-        <li><a href="<?php echo $home_url;?>/sk_history">History</a></li>
         <li><a href="<?php echo $home_url;?>/sk_leaderboards">Leaderboards</a></li>
-        <li><a href="<?php echo $home_url;?>/sk_topics">Topics</a></li>
 <?php
 if($usertype==1){
   ?>
+        <li><a href="<?php echo $home_url;?>/sk_history">History</a></li>
+        <li><a href="<?php echo $home_url;?>/sk_topics">Topics</a></li>
         <li><a href="<?php echo $home_url;?>/sk_teachers">Teachers</a></li>
         <li><a href="<?php echo $home_url;?>/sk_students">Students</a></li>
         <li><a href="<?php echo $home_url;?>/sk_subjects">Subjects</a></li>

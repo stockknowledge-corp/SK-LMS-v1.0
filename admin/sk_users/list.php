@@ -6,6 +6,9 @@ require_once("../_conf.dba.inc.php");
 require_once("../_static.session.inc.php");
 validate_session();
 
+if($_COOKIE['usertype'] != 1)
+	header("Location: http://".$_SERVER['HTTP_HOST']."/admin/sk_pages/401.php");
+
 if(IsSet($_GET['offset'])) {
 	$offset = $_GET['offset'];
 } else {
