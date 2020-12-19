@@ -6,6 +6,9 @@ require_once("../_conf.dba.inc.php");
 require_once("../_static.session.inc.php");
 validate_session();
 
+if($_COOKIE['usertype'] == 3)
+	header("Location: http://".$_SERVER['HTTP_HOST']."/SK-LMS-App/admin/sk_pages/401.php");
+
 if(IsSet($_GET['offset'])) {
 	$offset = $_GET['offset'];
 } else {
@@ -60,16 +63,27 @@ switch($_REQUEST['order']) {
 
 }
 
-$query = "SELECT * FROM sk_teachers".$order_clause." LIMIT ".$offset.",".$list_limit;
+$queryCondition = '';
+
+if($_COOKIE['usertype'] == 2){
+	$query = "SELECT schoolname FROM sk_teachers WHERE user_id = ".$_COOKIE['loggedin'];
+	$row = $dba->query_first($query);
+
+	$queryCondition = 'WHERE schoolname = \''.$row['schoolname'].'\'';
+}
+
+
+$query = "SELECT * FROM sk_teachers ".$queryCondition.$order_clause." LIMIT ".$offset.",".$list_limit;
 $query_c = "SELECT count(*) FROM sk_teachers";
 
 $num = $dba->query_first($query_c);
 if($num[0] > 0) { 
 	$num_result_pages = $num[0] / $list_limit;
-} else {
-	$num_result_pages = 1;
-	$query = "SELECT * FROM sk_teachers";
-}
+} 
+// else {
+// 	$num_result_pages = 1;
+// 	$query = "SELECT * FROM sk_teachers";
+// }
 $results = $dba->query($query);
 ?>
 <html>
@@ -115,7 +129,12 @@ while($row = $dba->fetch_array($results)) {
 echo("<tr>\n");
 	$queryi = "SELECT * FROM sk_users WHERE id = '".$row['user_id']."'";
 	$rowi = $dba->query_first($queryi);
-	echo("\t<td><a href='edit.php?id=".$row['id']."'>".$rowi[1]."</a></td>\n");
+
+	if($_COOKIE['usertype'] == 1)
+		echo("\t<td><a href='edit.php?id=".$row['id']."'>".$rowi[1]."</a></td>\n");
+	else
+		echo("\t<td>".$rowi[1]."</td>\n");
+
 	echo("\t<td>".substr(htmlentities($row['schoolname']),0,80)."</td>\n");
 	echo("\t<td><a href=\"edit.php?id=".$row['id']."\" class=\"btn btn-warning\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a> <a href=\"delete.php?id=".$row['id']."\" class=\"btn btn-danger\"><i class=\"fa fa-trash\" aria-hidden=\"true\"></i>
 </a></td>");
@@ -154,7 +173,12 @@ if($num > $list_limit_per_page) {
 ?>
 <br />
 <br />
-<a href="new.php" class="btn btn-success">Create new Entry</a>
+
+<?php 
+	if($_COOKIE['usertype'] == 1)
+	echo '<a href="new.php" class="btn btn-success">Create new Entry</a>';
+?>
+
 </div></div>
 <?php include('../footer.php');?>
 

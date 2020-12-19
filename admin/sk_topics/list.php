@@ -6,6 +6,9 @@ require_once("../_conf.dba.inc.php");
 require_once("../_static.session.inc.php");
 validate_session();
 
+if($_COOKIE['usertype'] == 3)
+	header("Location: http://".$_SERVER['HTTP_HOST']."/SK-LMS-App/admin/sk_pages/401.php");
+
 if(IsSet($_GET['offset'])) {
 	$offset = $_GET['offset'];
 } else {
@@ -230,7 +233,11 @@ if(substr($order_link_arg_head,0,-4) == 'mode_id') {
 <?php 
 while($row = $dba->fetch_array($results)) {
 echo("<tr>\n");
-	echo("\t<td><a href='edit.php?id=".$row['id']."'>".substr(htmlentities($row['title']),0,80)."</a></td>\n");
+	if($_COOKIE['usertype'] == 1)
+		echo("\t<td><a href='edit.php?id=".$row['id']."'>".substr(htmlentities($row['title']),0,80)."</a></td>\n");
+	else
+		echo("\t<td>".substr(htmlentities($row['title']),0,80)."</td>\n");
+	
 	$queryi = "SELECT * FROM sk_subjects WHERE id = '".$row['subject_id']."'";
 	$rowi = $dba->query_first($queryi);
 	echo("\t<td>".$rowi[1]."</td>\n");
@@ -280,7 +287,12 @@ if($num > $list_limit_per_page) {
 ?>
 <br />
 <br />
-<a href="new.php" class="btn btn-success">Create new Entry</a>
+
+<?php 
+	if($_COOKIE['usertype'] == 1)
+	echo '<a href="new.php" class="btn btn-success">Create new Entry</a>'
+?>
+
 </div></div>
 <?php include('../footer.php');?>
 

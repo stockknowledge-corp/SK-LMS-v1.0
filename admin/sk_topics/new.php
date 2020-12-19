@@ -52,7 +52,9 @@ echo("<option value='".$row['id']."'>"."".$row[1]."</option>
 </tr>
 <tr>
 	<td>Background</td>
-	<td><textarea name="background"></textarea>
+	<td>
+		<input type="file" name="background" id="background" onchange="updateModeContent()"><br>
+	</td>
 </td>
 </tr>
 <tr>
@@ -114,6 +116,7 @@ function addHotSpot1(){
 	hotspot++;
 var html=`
 &nbsp;&nbsp;Hotspot #`+hotspot+`:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;title: <input type="text" id="title`+hotspot+`s" class="coordinate" onkeydown="updateModeContent()" onchange="updateModeContent()" onblur="updateModeContent()"><br>
 &nbsp;&nbsp;&nbsp;&nbsp;Coordinate X: <input type="text" id="coordinateX`+hotspot+`" class="coordinate" onkeydown="updateModeContent()" onchange="updateModeContent()" onblur="updateModeContent()"><br>
 &nbsp;&nbsp;&nbsp;&nbsp;Coordinate Y: <input type="text" id="coordinateY`+hotspot+`" class="coordinate" onkeydown="updateModeContent()" onchange="updateModeContent()" onblur="updateModeContent()"><br>
 &nbsp;&nbsp;&nbsp;&nbsp;Coordinate Z: <input type="text" id="coordinateZ`+hotspot+`" class="coordinate" onkeydown="updateModeContent()" onchange="updateModeContent()" onblur="updateModeContent()"><br>
@@ -133,6 +136,7 @@ function addHotSpot2(){
 	hotspot++;
 var html=`
 &nbsp;&nbsp;Hotspot #`+hotspot+`:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;title: <input type="text" id="title`+hotspot+`s" class="coordinate" onkeydown="updateModeContent()" onchange="updateModeContent()" onblur="updateModeContent()"><br>
 &nbsp;&nbsp;&nbsp;&nbsp;Coordinate X Start: <input type="text" id="coordinateX`+hotspot+`s" class="coordinate" onkeydown="updateModeContent()" onchange="updateModeContent()" onblur="updateModeContent()"><br>
 &nbsp;&nbsp;&nbsp;&nbsp;Coordinate Y Start: <input type="text" id="coordinateY`+hotspot+`s" class="coordinate" onkeydown="updateModeContent()" onchange="updateModeContent()" onblur="updateModeContent()"><br>
 &nbsp;&nbsp;&nbsp;&nbsp;Coordinate Z Start: <input type="text" id="coordinateZ`+hotspot+`s" class="coordinate" onkeydown="updateModeContent()" onchange="updateModeContent()" onblur="updateModeContent()"><br>
@@ -151,6 +155,19 @@ window.scrollTo(0,100000000000);
 }
 
 function updateModeContent(){
+var backgroundPath = document.getElementById('background').value;
+console.log(backgroundPath);
+var backgroundName = '';
+
+if (backgroundPath) {
+    var startIndex = (backgroundPath.indexOf('\\') >= 0 ? backgroundPath.lastIndexOf('\\') : backgroundPath.lastIndexOf('/'));
+    backgroundName = backgroundPath.substring(startIndex);
+    if (backgroundName.indexOf('\\') === 0 || backgroundName.indexOf('/') === 0) {
+        backgroundName = backgroundName.substring(1);
+    }
+    // alert(backgroundName);
+}
+if(backgroundName=='') backgroundName=objTemp['background'];
 
 var fullPath = document.getElementById('3dFile').value;
 var filename = '';
@@ -170,6 +187,7 @@ var mode =document.querySelector('select[name=mode_id]').value;
 
 for(var i=1; i<=hotspot; i++){
 	if(mode==1){
+		var title = document.getElementById('title'+i+'s').value;
 		var coordinateX = document.getElementById('coordinateX'+i).value;
 		var coordinateY = document.getElementById('coordinateY'+i).value;
 		var coordinateZ = document.getElementById('coordinateZ'+i).value;
@@ -177,10 +195,11 @@ for(var i=1; i<=hotspot; i++){
 		if(coordinateX==''&&coordinateY==''&&coordinateZ==''&&description==''){
 			// document.querySelector('#hotspots').removeChild(document.querySelector('#hotspot-'+i));
 		} else {
-		hotspotArr[i-1]={"coordinates":coordinateX+","+coordinateY+","+coordinateZ, "description":description};
+			hotspotArr[i-1]={"id": i, "title":title,"coordinates":coordinateX+","+coordinateY+","+coordinateZ, "description":description};
 		}
 	}
 	if(mode==2){
+		var title = document.getElementById('title'+i+'s').value;
 		var coordinateXs = document.getElementById('coordinateX'+i+'s').value;
 		var coordinateYs = document.getElementById('coordinateY'+i+'s').value;
 		var coordinateZs = document.getElementById('coordinateZ'+i+'s').value;
@@ -191,10 +210,8 @@ for(var i=1; i<=hotspot; i++){
 		if(coordinateXs==''&&coordinateYs==''&&coordinateZs==''&&coordinateXe==''&&coordinateYe==''&&coordinateZe==''&&description==''){
 			// document.querySelector('#hotspots').removeChild(document.querySelector('#hotspot-'+i));
 		} else {
-		hotspotArr[i-1]={"coordinatesS":coordinateXs+","+coordinateYs+","+coordinateZs, "coordinatesE":coordinateXe+","+coordinateYe+","+coordinateZe, "description":description};
+			hotspotArr[i-1]={"id": i, "title":title,"coordinatesS":coordinateXs+","+coordinateYs+","+coordinateZs, "coordinatesE":coordinateXe+","+coordinateYe+","+coordinateZe, "description":description};
 		}
-
-
 	}
 }
 var hotspotArr = hotspotArr.filter(function (el) {
