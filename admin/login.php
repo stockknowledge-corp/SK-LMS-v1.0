@@ -21,7 +21,6 @@ if(isset($_GET['login'])){
 		$dba->query($query2);
 
 		setcookie('loggedin', $row['id'], time() + (86400 * 30)); 
-		setcookie('usertype', $row['usertype'], time() + (86400 * 30)); 
 		$_SESSION['flash'] = "Login successful";
 		header("Location: ".$home_url."/sk_users/edit.php?id=".$row['id']);
 

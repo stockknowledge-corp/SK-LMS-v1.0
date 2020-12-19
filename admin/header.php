@@ -12,9 +12,24 @@ if($headingArr[1]!='list.php') $heading.=' >> '.ucwords(str_replace('.php','',$h
 $heading = explode('?',$heading);
 $heading = ucwords($heading[0]);
 $loggedin=false;
-if(isset($_COOKIE['loggedin'])) $loggedin=$_COOKIE['loggedin'];
-if(isset($_COOKIE['usertype'])) $usertype=$_COOKIE['usertype'];
-	// echo $heading;
+
+
+if(isset($_COOKIE['loggedin'])) {
+	$loggedin=$_COOKIE['loggedin'];
+	require_once("_class.dba.inc.php");
+	require_once("_conf.dba.inc.php");
+	$query = "SELECT * FROM sk_users WHERE id='".$loggedin."' LIMIT 1";
+	$result = $dba->query($query);
+	$row = $dba->fetch_array($result);
+	if($row){
+		setcookie('usertype', $row['usertype'], time() + (86400 * 30)); 
+		$usertype=$row['usertype'];
+		} else {
+			$loggedin=false;
+		}
+	// if(isset($_COOKIE['usertype'])) $usertype=$_COOKIE['usertype'];
+
+} 
 
 if($heading != 'Login ' && !$loggedin && strpos($heading,'Pages >>')===false){
 	$URL=$home_url.'/login.php';
