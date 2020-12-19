@@ -163,7 +163,7 @@ if(substr($order_link_arg_head,0,-4) == 'email') {
 	$ola='email';
 }
 ?>
-<th class=sk_email><a href="list.php?order=<?= $ola ?>">Email</a></th>
+<!-- <th class=sk_email><a href="list.php?order=<?= $ola ?>">Email</a></th> -->
 <?php
 if(substr($order_link_arg_head,0,-4) == 'mobile') {
 	$ola=$order_link_arg_head;
@@ -171,7 +171,7 @@ if(substr($order_link_arg_head,0,-4) == 'mobile') {
 	$ola='mobile';
 }
 ?>
-<th class=sk_mobile><a href="list.php?order=<?= $ola ?>">Mobile</a></th>
+<!-- <th class=sk_mobile><a href="list.php?order=<?= $ola ?>">Mobile</a></th> -->
 <?php
 if(substr($order_link_arg_head,0,-4) == 'firstname') {
 	$ola=$order_link_arg_head;
@@ -196,20 +196,19 @@ if(substr($order_link_arg_head,0,-4) == 'usertype') {
 }
 ?>
 <th class=sk_usertype><a href="list.php?order=<?= $ola ?>">Usertype</a></th>
-<th class="crud" width="200">Controls</th></tr>
+<!-- <th class="crud" width="200">Controls</th></tr> -->
 <?php 
 while($row = $dba->fetch_array($results)) {
 echo("<tr>\n");
 	echo("\t<td><a href='edit.php?id=".$row['id']."'>".substr(htmlentities($row['username']),0,80)."</a></td>\n");
-	echo("\t<td>".substr(htmlentities($row['email']),0,80)."</td>\n");
-	echo("\t<td>".substr(htmlentities($row['mobile']),0,80)."</td>\n");
+	// echo("\t<td>".substr(htmlentities($row['email']),0,80)."</td>\n");
+	// echo("\t<td>".substr(htmlentities($row['mobile']),0,80)."</td>\n");
 	echo("\t<td>".substr(htmlentities($row['firstname']),0,80)."</td>\n");
 	echo("\t<td>".substr(htmlentities($row['lastname']),0,80)."</td>\n");
 	$queryi = "SELECT * FROM sk_user_types WHERE id = '".$row['usertype']."'";
 	$rowi = $dba->query_first($queryi);
 	echo("\t<td>".$rowi[1]."</td>\n");
-	echo("\t<td><a href=\"edit.php?id=".$row['id']."\" class=\"btn btn-warning\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a> <a href=\"delete.php?id=".$row['id']."\" class=\"btn btn-danger\"><i class=\"fa fa-trash\" aria-hidden=\"true\"></i>
-</a></td>");
+	// echo("\t<td><a href=\"edit.php?id=".$row['id']."\" class=\"btn btn-warning\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a> <a href=\"delete.php?id=".$row['id']."\" class=\"btn btn-danger\"><i class=\"fa fa-trash\" aria-hidden=\"true\"></i></a></td>");
 	echo("</tr> ");
 }
 ?>
