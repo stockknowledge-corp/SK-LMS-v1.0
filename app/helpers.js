@@ -98,6 +98,7 @@ var stringToHTML = function (str) {
     var dom = document.createElement('a-scene');
     dom.innerHTML = str;
     // dom.setAttribute('id','main3d');
+    dom.setAttribute('embedded','');
     return dom;
 
 };
