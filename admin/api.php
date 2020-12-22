@@ -24,7 +24,7 @@ if(isset($_GET['f'])){
 function getStudent(){
   global $dba;
 
-  $query = 'SELECT sk_students.id, sk_students.user_id, sk_users.username, sk_users.email, sk_users.mobile, sk_users.firstname, sk_users.lastname, sk_users.photo, sk_students.gradelevel, sk_students.schoolname, sk_students.preferences, sk_students.progress FROM sk_students INNER JOIN sk_users ON sk_users.id = sk_students.user_id WHERE sk_students.user_id = '.$_GET['id'];
+  $query = 'SELECT sk_students.id, sk_students.user_id, sk_users.username, sk_users.email, sk_users.mobile, sk_users.firstname, sk_users.lastname, sk_users.photo, sk_students.gradelevel, sk_students.schoolname, sk_students.preferences, sk_students.progress FROM sk_students INNER JOIN sk_users ON sk_users.id = sk_students.user_id WHERE sk_students.user_id = '.mysqli_real_escape_string($dba->link_id,$_GET['id']);
   $result = $dba->query($query);
   $row = $dba->fetch_array($result);
 
@@ -62,21 +62,21 @@ function editStudent(){
 
   $fields = [];
 
-  $query = 'SELECT user_id FROM sk_students WHERE id = '.$_GET['id'].';';
+  $query = 'SELECT user_id FROM sk_students WHERE id = '.mysqli_real_escape_string($dba->link_id, $_GET['id']).';';
   $result = $dba->query($query);
   $userid = $dba->fetch_array($result)['user_id'];
 
   if(!empty($_POST['grade_level']) || !empty($_POST['school_name']) || !empty($_POST['preferences']) || !empty($_POST['progress'])){
     foreach(array_keys($_POST) as $keys){
-      if($keys == 'grade_level') array_push($fields,'gradelevel = '.$_POST[$keys]);
-      if($keys == 'school_name') array_push($fields,'schoolname  = '.$_POST[$keys]);
-      if($keys == 'preferences') array_push($fields, 'preferences = '.$_POST[$keys]);
-      if($keys == 'progress') array_push($fields, 'progress = '.$_POST[$keys]);
+      if($keys == 'grade_level') array_push($fields,'gradelevel = '.mysqli_real_escape_string($dba->link_id, $_POST[$keys]));
+      if($keys == 'school_name') array_push($fields,'schoolname  = '.mysqli_real_escape_string($dba->link_id, $_POST[$keys]));
+      if($keys == 'preferences') array_push($fields, 'preferences = '.mysqli_real_escape_string($dba->link_id, $_POST[$keys]));
+      if($keys == 'progress') array_push($fields, 'progress = '.mysqli_real_escape_string($dba->link_id, $_POST[$keys]));
     }
 
     $fieldsQuery = implode(', ', $fields);
 
-    $query = 'UPDATE sk_students SET '.$fieldsQuery.' WHERE id = '.$_GET['id'].';';
+    $query = 'UPDATE sk_students SET '.$fieldsQuery.' WHERE id = '.mysqli_real_escape_string($dba->link_id, $_GET['id']).';';
     $result = $dba->query($query);
 
     $updateOk = 1;
@@ -105,21 +105,21 @@ function editStudent(){
   
   if(!empty($_POST['username']) || !empty($_POST['password']) || !empty($_POST['email']) || !empty($_POST['mobile']) || !empty($_POST['first_name']) || !empty($_POST['last_name'])){
     foreach(array_keys($_POST) as $key){
-      if($key == 'username') array_push($fields,'username = \''.$_POST[$key].'\'');
-      if($key == 'password') array_push($fields,'password  = \''.$_POST[$key].'\'');
-      if($key == 'email') array_push($fields, 'email = \''.$_POST[$key].'\'');
-      if($key == 'mobile') array_push($fields, 'mobile = \''.$_POST[$key].'\'');
-      if($key == 'first_name') array_push($fields, 'firstname = \''.$_POST[$key].'\'');
-      if($key == 'last_name') array_push($fields, 'lastname = \''.$_POST[$key].'\'');
+      if($key == 'username') array_push($fields,'username = \''.mysqli_real_escape_string($dba->link_id, $_GET['id']).'\'');
+      if($key == 'password') array_push($fields,'password  = \''.mysqli_real_escape_string($dba->link_id, $_GET['id']).'\'');
+      if($key == 'email') array_push($fields, 'email = \''.mysqli_real_escape_string($dba->link_id, $_GET['id']).'\'');
+      if($key == 'mobile') array_push($fields, 'mobile = \''.mysqli_real_escape_string($dba->link_id, $_GET['id']).'\'');
+      if($key == 'first_name') array_push($fields, 'firstname = \''.mysqli_real_escape_string($dba->link_id, $_GET['id']).'\'');
+      if($key == 'last_name') array_push($fields, 'lastname = \''.mysqli_real_escape_string($dba->link_id, $_GET['id']).'\'');
     }
 
     if($uploadOk == 1){
-      array_push($fields, 'photo = \''.$_FILES['file']['name'].'\'');
+      array_push($fields, 'photo = \''.mysqli_real_escape_string($dba->link_id, $_FILES['file']['name']).'\'');
     }
 
     $fieldsQuery = implode(', ', $fields);
 
-    $query = 'UPDATE sk_users SET '.$fieldsQuery.' WHERE id = '.$userid.';';
+    $query = 'UPDATE sk_users SET '.$fieldsQuery.' WHERE id = '.mysqli_real_escape_string($dba->link_id, $userid).';';
     $result = $dba->query($query);
   }
 
@@ -137,10 +137,10 @@ function getStudents(){
   $condition = NULL;
   
   if(isset($_POST['id'])){
-    $query = 'SELECT * FROM sk_teachers WHERE id = '.$_POST['id'].' LIMIT 1;';
+    $query = 'SELECT * FROM sk_teachers WHERE id = '.mysqli_real_escape_string($dba->link_id, $_POST['id']).' LIMIT 1;';
     $result = $dba->query($query);
     $teacher = $dba->fetch_array($result);
-    $condition = 'WHERE gradelevel = '.$teacher['gradelevel'].' AND schoolname = '.$teacher['schoolname'];
+    $condition = 'WHERE gradelevel = '.mysqli_real_escape_string($dba->link_id, $teacher['gradelevel']).' AND schoolname = '.mysqli_real_escape_string($dba->link_id, $teacher['schoolname']);
   }
   
   $query = 'SELECT sk_students.id, sk_students.user_id, sk_users.username, sk_users.firstname, sk_users.lastname, sk_students.gradelevel, sk_students.schoolname, sk_students.preferences, sk_students.progress FROM sk_students INNER JOIN sk_users ON sk_users.id = sk_students.user_id '.(isset($_POST['id']) ? $condition : '');
@@ -293,7 +293,7 @@ function addPoints(){
     $totalPoints = $points;
     
     // Update student Point
-    $updateStudentQuery = "UPDATE sk_students SET progress =  ".$totalPoints." WHERE user_id = ".$_POST['userid'].";";
+    $updateStudentQuery = "UPDATE sk_students SET progress =  ".mysqli_real_escape_string($dba->link_id,$totalPoints)." WHERE user_id = ".mysqli_real_escape_string($dba->link_id,$_POST['userid']).";";
     $result = $dba->query($updateStudentQuery);
     $return ='{"result": "success","content":{"points":"'.$totalPoints.'"}}';
 
@@ -311,8 +311,8 @@ function leaderboard(){
   $queryConditions = [];
 
   foreach(array_keys($_GET) as $keys){
-    if($keys == 'school_id') array_push($queryConditions,'schoolname = '.$_GET[$keys]);
-    if($keys == 'grade_level') array_push($queryConditions,'gradelevel  = '.$_GET[$keys]);
+    if($keys == 'school_id') array_push($queryConditions,'schoolname = '.mysqli_real_escape_string($dba->link_id, $_GET[$keys]));
+    if($keys == 'grade_level') array_push($queryConditions,'gradelevel  = '.mysqli_real_escape_string($dba->link_id, $_GET[$keys]));
   }
 
   $condition = implode(' AND ', $queryConditions);
@@ -379,7 +379,7 @@ function getTopics(){
   $results = $dba->query($query);
   $r = '{"result":"success","content":[';
   while($row = $dba->fetch_array($results)) {
-    $queryi = "SELECT * FROM sk_subjects WHERE id = '".$row['subject_id']."'";
+    $queryi = 'SELECT * FROM sk_subjects WHERE id = \''.mysqli_real_escape_string($dba->link_id,$row['subject_id']).'\'';
     $rowi = $dba->query_first($queryi);
 
     $r .= '{
@@ -400,7 +400,7 @@ function getTopics(){
 function getTopic(){
   global $dba;
   if(isset($_GET['id'])){
-    $query = "SELECT * FROM sk_topics WHERE id='".$_GET['id']."' LIMIT 1";
+    $query = 'SELECT * FROM sk_topics WHERE id=\''.mysqli_real_escape_string($dba->link_id,$_GET['id']).'\' LIMIT 1';
     $result = $dba->query($query);
     $row = $dba->fetch_array($result);
     echo '
@@ -427,7 +427,7 @@ function login(){
   $loginerror='{"result":"Invalid login"}';
 
 
-  $query = "SELECT * FROM sk_users WHERE username='".$_POST['username']."' AND password='".md5($_POST['password'])."' LIMIT 1";
+  $query = "SELECT * FROM sk_users WHERE username='".mysqli_real_escape_string($dba->link_id,$_POST['username'])."' AND password='".mysqli_real_escape_string($dba->link_id,md5($_POST['password']))."' LIMIT 1";
   $result = $dba->query($query);
   $row = $dba->fetch_array($result);
   
@@ -446,6 +446,7 @@ function login(){
 
   echo $loginerror;
 }
+
 function register(){
   global $dba;
   global $home_url;
@@ -455,7 +456,7 @@ function register(){
   if($_POST['username']=='') $registrationerror.='<li>Username required</li>';
 
   if($_POST['username']!=''){
-    $query = "SELECT * FROM sk_users WHERE username='".$_POST['username']."' AND password='".md5($_POST['password'])."' LIMIT 1";
+    $query = "SELECT * FROM sk_users WHERE username='".mysqli_real_escape_string($dba->link_id,$_POST['username'])."' AND password='".mysqli_real_escape_string($dba->link_id,md5($_POST['password']))."' LIMIT 1";
     $result = $dba->query($query);
     $row = $dba->fetch_array($result);
 
