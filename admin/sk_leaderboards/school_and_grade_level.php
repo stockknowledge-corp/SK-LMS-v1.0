@@ -7,7 +7,7 @@ require_once("../_static.session.inc.php");
 validate_session();
 
 if(IsSet($_GET['offset'])) {
-	$offset = $_GET['offset'];
+	$offset = 	mysqli_real_escape_string($dba->link_id, $_GET['offset']);
 } else {
 	$offset = 0;
 }

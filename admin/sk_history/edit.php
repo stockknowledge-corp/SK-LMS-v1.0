@@ -5,7 +5,7 @@ require_once("../_conf.dba.inc.php");
 require_once("../_static.session.inc.php");
 validate_session();
 
-$query = "SELECT * FROM sk_history WHERE id='".$_REQUEST['id']."' LIMIT 1";
+$query = "SELECT * FROM sk_history WHERE id='".mysqli_real_escape_string($dba->link_id,$_REQUEST['id'])."' LIMIT 1";
 $result = $dba->query($query);
 $row = $dba->fetch_array($result);
 ?>

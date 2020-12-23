@@ -7,12 +7,12 @@ require_once("../_static.session.inc.php");
 validate_session();
 
 if(isset($_GET['offset'])) {
-	$offset = $_GET['offset'];
+	$offset = mysqli_real_escape_string($dba->link_id, $_GET['offset']);
 } else {
 	$offset = 0;
 }
 if(isset($_GET['school'])) {
-	$school = $_GET['school'];
+	$school = mysqli_real_escape_string($dba->link_id, $_GET['school']);
 } else {
 	$school = 0;
 }

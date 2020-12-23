@@ -76,10 +76,10 @@ switch($_REQUEST['order']) {
 $queryCondition = '';
 
 if($_COOKIE['usertype'] == 2){
-	$query = 'SELECT gradelevel, schoolname FROM sk_teachers WHERE user_id = '.$_COOKIE['loggedin'];
+	$query = 'SELECT gradelevel, schoolname FROM sk_teachers WHERE user_id = '.mysqli_real_escape_string($dba->link_id, $_COOKIE['loggedin']);
 	$row = $dba->query_first($query);
 	
-	$queryCondition = 'WHERE schoolname = \''.$row['schoolname'].'\' AND gradelevel = \''.$row['gradelevel'].'\'';
+	$queryCondition = 'WHERE schoolname = \''.mysqli_real_escape_string($dba->link_id, $row['schoolname']).'\' AND gradelevel = \''.mysqli_real_escape_string($dba->link_id, $row['gradelevel']).'\'';
 }
 
 $query = "SELECT * FROM sk_history JOIN sk_students ON sk_students.user_id = sk_history.user_id ".$queryCondition.$order_clause." LIMIT ".$offset.",".$list_limit;
