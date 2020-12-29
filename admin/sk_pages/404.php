@@ -15,7 +15,6 @@ validate_session();
 <?php include('../sidebar.php');?>
 <div id="main-container"><div id="main">
 <h1>Page not found...</h1>
-
 </div></div>
 <?php include('../footer.php');?>
 
