@@ -403,6 +403,8 @@ function getTopic(){
     $query = "SELECT * FROM sk_topics WHERE id='".$_GET['id']."' LIMIT 1";
     $result = $dba->query($query);
     $row = $dba->fetch_array($result);
+    $mc=$row['mode_content'];
+    if($mc=='') $mc='""';
     echo '
     {
         "subject": "'.$row['subject_id'].'",
@@ -413,7 +415,7 @@ function getTopic(){
         "mode": '.$row['mode_id'].',
         "gradelevel": "'.$row['grade_level'].'",
         "content": "'.$row['content'].'",
-        "modecontent": '.$row['mode_content'].'
+        "modecontent": '.$mc.'
       }
     ';
   }

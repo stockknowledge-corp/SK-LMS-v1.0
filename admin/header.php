@@ -18,12 +18,12 @@ if(isset($_COOKIE['loggedin'])) {
 	$loggedin=$_COOKIE['loggedin'];
 	require_once("_class.dba.inc.php");
 	require_once("_conf.dba.inc.php");
-	$query = "SELECT * FROM sk_users WHERE id='".$loggedin."' LIMIT 1";
-	$result = $dba->query($query);
-	$row = $dba->fetch_array($result);
-	if($row){
-		setcookie('usertype', $row['usertype'], time() + (86400 * 30)); 
-		$usertype=$row['usertype'];
+	$queryx = "SELECT * FROM sk_users WHERE id='".$loggedin."' LIMIT 1";
+	$resultx = $dba->query($queryx);
+	$rowx = $dba->fetch_array($resultx);
+	if($rowx){
+		setcookie('usertype', $rowx['usertype'], time() + (86400 * 30)); 
+		$usertype=$rowx['usertype'];
 		} else {
 			$loggedin=false;
 		}

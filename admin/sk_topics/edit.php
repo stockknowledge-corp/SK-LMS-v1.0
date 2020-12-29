@@ -197,7 +197,7 @@ if (backgroundPath) {
     }
     // alert(backgroundName);
 }
-if(backgroundName=='') backgroundName=objTemp['background'];
+//if(backgroundName=='') backgroundName=objTemp['background'];
 
 var fullPath = document.getElementById('3dFile').value;
 var filename = '';
