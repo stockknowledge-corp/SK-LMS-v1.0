@@ -32,20 +32,6 @@ function resetCam(){
     cam.setAttribute('animation','property: position; easing: easeInCubic; dur: 1000; to: 0 1.6 0; from:'+cam.getAttribute('animation').to);
 
 }
-function getScene(topic){
-var xhttp = new XMLHttpRequest();
-xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-       // Typical action to be performed when the document is ready:
-       // console.log(xhttp.responseText);
-       r = JSON.parse(xhttp.responseText);
-       createScene(r);
-    }
-};
-xhttp.open("GET", "../admin/api.php?f=getTopic&id="+topic, true);
-xhttp.send();
-
-}
 
 function createScene(r){
 console.log(r);

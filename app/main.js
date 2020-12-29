@@ -1,5 +1,19 @@
 var activeScreen = '';
 var name='Guest';
+var currentUrl = window.location.href;
+currentUrl=currentUrl.split('/');
+if(currentUrl[currentUrl.length-1]=='index.html') currentUrl[currentUrl.length-1] ='';
+if(currentUrl[currentUrl.length-1].search('#')>=0) currentUrl[currentUrl.length-1] ='';
+currentUrl=currentUrl.join('/');
+currentUrl=currentUrl.split('?p=');
+currentUrl=currentUrl[0];
+var path = getParameterByName('p');
+var modepath = getParameterByName('mode');
+var topicpath = getParameterByName('topic');
+window.history.pushState({},'Index',currentUrl);
+
+
+
 document.addEventListener("DOMContentLoaded", function() {
 	window.scrollTo(0,1);
 	showLoader('Starting Up',1000);
@@ -8,6 +22,10 @@ document.addEventListener("DOMContentLoaded", function() {
 	changeScreen('#start');
 	// document.getElementById("game-bg").volume = 0.2;
 	// document.getElementById("game-bg").play();
+
+
+
+
 	if(location.hash=='#dashboard' && activeScreen!='dashboard'){
 		changeScreen('#dashboard');
 		dashTabs('#dash-home'); 
@@ -18,8 +36,25 @@ document.addEventListener("DOMContentLoaded", function() {
 		showLoader('Automatically logged in', 2000);
 		// getUser();
 		changeScreen('#dashboard');
-		dashTabs('#dash-home'); 
+		if(path!=null){
+			// alert(path);
+			// path = path.split('[');
+			path = path.split(']');
+			path = path[0].replace('[','');
+			path = path.split('/');
+			path = path[path.length-1];
+			// alert(path);
+			dashTabs('#dash-'+path);
+		} else {
+			if(modepath!=null && topicpath!=null){
+				changeScreen('#mode'+modepath); 
+				getScene(topicpath);
+			} else {
+				dashTabs('#dash-home'); 
+			}
+		}
 		getUser();
+
 	}
 });
 function changeScreen(w){
@@ -29,11 +64,18 @@ function changeScreen(w){
 	}
 	document.querySelector(w).style.display='block';
 	// document.getElementById("game-bg").play();
+	window.history.pushState({},'Index',currentUrl);
 	activeScreen=w;
 	if(w=='#dashboard' && getCookie('fn')!=''){
 		getUser();
 	}
-
+	if(w.search('mode')>=0){
+		var tab = w.replace('#','');
+		tab=tab.split('mode')
+		tab=tab[1];
+		tabTitle=tab.charAt(0).toUpperCase();
+		window.history.pushState({},tabTitle,currentUrl+'?mode='+tab);
+	}
 	window.scrollTo(0,1);
 }
 function startReset(){
@@ -59,6 +101,9 @@ function startProcess(w){
 function dashTabs(w){
 		document.querySelector('#dash-menu').classList.remove("visible");
 		document.querySelector('.mobile-menu-container').classList.remove("change");
+		var tab = w.replace('#dash-','');
+		tabTitle=tab.charAt(0).toUpperCase();
+		window.history.pushState({},tabTitle,currentUrl+tab);
 
 	if(document.querySelector(w).style.display!='block'){
 		var divs = document.querySelectorAll('#dash-content>div'), i;
@@ -273,6 +318,31 @@ function getTopics(){
 	XHR.send(fd);
 }
 
+function getScene(topic){
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+  //  		var tab = w.replace('#dash-','');
+		// tabTitle=tab.charAt(0).toUpperCase();
+		// window.history.pushState({},tabTitle,currentUrl+tab);
+		r = JSON.parse(xhttp.responseText);
+		createScene(r);
+		var currentUrl2 = window.location.href;
+		currentUrl2=currentUrl2.split('?');
+		currentUrl2[1]=currentUrl2[1].split('&');
+		currentUrl2[1]=currentUrl2[1][0];
+		currentUrl2=currentUrl2[0]+'?'+currentUrl2[1];
+		window.history.pushState({},tabTitle,currentUrl2+'&topic='+topic);
+    }
+};
+xhttp.open("GET", "../admin/api.php?f=getTopic&id="+topic, true);
+xhttp.send();
+
+}
+
+window.onpopstate = () => {
+	// location.href=location.pathname
+}
 
 
 
