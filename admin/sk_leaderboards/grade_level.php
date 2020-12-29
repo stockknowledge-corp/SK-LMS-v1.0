@@ -28,7 +28,7 @@ $order_link_arg = "";
 		$order_link_arg_head = "progress_asc";
 		$order_link_arg = "progress_dsc";
 
-$query = "SELECT * FROM sk_students WHERE `gradelevel` LIKE '".$grade."' ".$order_clause." LIMIT ".$offset.",".$list_limit;
+$query = "SELECT * FROM sk_students WHERE `gradelevel` LIKE '".mysqli_real_escape_string($dba->link, $grade)."' ".$order_clause." LIMIT ".$offset.",".$list_limit;
 $query_c = "SELECT count(*) FROM sk_students";
 
 $num = $dba->query_first($query_c);

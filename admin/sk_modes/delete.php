@@ -20,7 +20,7 @@ $_SESSION['flash'] = "Entry Nr. ".$_REQUEST['id']." not deleted";
 <h1><?php echo $heading;?></h1>
 
 <?php
-$query = "SELECT * FROM sk_modes WHERE id='".$_REQUEST['id']."' LIMIT 1";
+$query = "SELECT * FROM sk_modes WHERE id='".mysqli_real_escape_string($dba->link_id, $_REQUEST['id'])."' LIMIT 1";
 $row = $dba->query_first($query);
 ?>
 Do you really want to delete Entry Nr. <?= $_REQUEST['id'] ?> (<?= $row[0].", ".$row[1] ?>)?
