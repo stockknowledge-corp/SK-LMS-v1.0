@@ -375,7 +375,7 @@ function getTopics(){
   //   echo '],';
   // }
   //  echo ']';
-  $query = 'SELECT * FROM sk_topics ORDER BY id DESC LIMIT 50';
+  $query = 'SELECT * FROM sk_topics WHERE \`status\` = \'Published\'  ORDER BY id DESC LIMIT 50';
   $results = $dba->query($query);
   $r = '{"result":"success","content":[';
   while($row = $dba->fetch_array($results)) {
@@ -400,13 +400,19 @@ function getTopics(){
 function getTopic(){
   global $dba;
   if(isset($_GET['id'])){
-    $query = 'SELECT * FROM sk_topics WHERE id=\''.mysqli_real_escape_string($dba->link_id,$_GET['id']).'\' LIMIT 1';
+    $query = 'SELECT * FROM sk_topics WHERE status != \'Not published\' AND id=\''.mysqli_real_escape_string($dba->link_id,$_GET['id']).'\' LIMIT 1';
     $result = $dba->query($query);
     $row = $dba->fetch_array($result);
-    $mc=$row['mode_content'];
-    if($mc=='') $mc='""';
-    echo '
-    {
+
+
+    if(empty($row))
+      echo '{"result": "fail"}';
+    else{
+      $mc=$row['mode_content'];
+      if($mc=='') $mc='""';
+
+      echo '
+      {
         "subject": "'.$row['subject_id'].'",
         "chapter": "'.$row['chapter'].'",
         "title": "'.$row['title'].'",
@@ -417,9 +423,8 @@ function getTopic(){
         "content": "'.$row['content'].'",
         "modecontent": '.$mc.'
       }
-    ';
+    ';}
   }
-
 }
 
 function login(){
