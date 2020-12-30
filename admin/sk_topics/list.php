@@ -134,6 +134,17 @@ switch($_REQUEST['order']) {
 		$order_link_arg_head = "mode_id_asc";
 		$order_link_arg = "mode_id_dsc";
 		break;
+	case 'status':
+	case 'status_asc':
+			$order_clause = " ORDER BY status ASC";
+			$order_link_arg_head = "status_dsc";
+			$order_link_arg = "status_asc";
+			break;
+	case 'status_dsc':
+			$order_clause = " ORDER BY status DESC";
+			$order_link_arg_head = "status_asc";
+			$order_link_arg = "status_dsc";
+			break;
 	default:
 		$order_clause = " ORDER BY id";
 }
@@ -229,6 +240,14 @@ if(substr($order_link_arg_head,0,-4) == 'mode_id') {
 }
 ?>
 <th class=sk_mode_id><a href="list.php?order=<?= $ola ?>">Mode </a></th>
+<?php
+if(substr($order_link_arg_head,0,-4) == 'status') {
+	$ola=$order_link_arg_head;
+} else {
+	$ola='status';
+}
+?>
+<th class=sk_status><a href="list.php?order=<?= $ola ?>">Status</a></th>
 <th class="crud" width="200">Controls</th></tr>
 <?php 
 while($row = $dba->fetch_array($results)) {
@@ -250,6 +269,7 @@ echo("<tr>\n");
 	$queryi = "SELECT * FROM sk_modes WHERE id = '".$row['mode_id']."'";
 	$rowi = $dba->query_first($queryi);
 	echo("\t<td>".$rowi[1]."</td>\n");
+	echo("\t<td>".substr(htmlentities($row['status']),0,80)."</td>\n");
 	echo("\t<td><a href=\"edit.php?id=".$row['id']."\" class=\"btn btn-warning\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a> <a href=\"delete.php?id=".$row['id']."\" class=\"btn btn-danger\"><i class=\"fa fa-trash\" aria-hidden=\"true\"></i>
 </a></td>");
 	echo("</tr> ");

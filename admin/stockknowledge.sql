@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 26, 2020 at 10:47 AM
+-- Generation Time: Dec 30, 2020 at 08:21 AM
 -- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.11
+-- PHP Version: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -34,13 +34,6 @@ CREATE TABLE `sk_history` (
   `datetime` text NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `sk_history`
---
-
-INSERT INTO `sk_history` (`id`, `module`, `activity`, `datetime`, `user_id`) VALUES
-(1, 'Users', 'User login', '2020-10-26 17:47:12', 1);
 
 -- --------------------------------------------------------
 
@@ -133,7 +126,8 @@ CREATE TABLE `sk_topics` (
   `grade_level` text NOT NULL,
   `subject_id` int(11) NOT NULL,
   `author_id` int(11) NOT NULL,
-  `mode_id` int(11) NOT NULL
+  `mode_id` int(11) NOT NULL,
+  `status` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -249,7 +243,7 @@ ALTER TABLE `sk_user_types`
 -- AUTO_INCREMENT for table `sk_history`
 --
 ALTER TABLE `sk_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sk_modes`

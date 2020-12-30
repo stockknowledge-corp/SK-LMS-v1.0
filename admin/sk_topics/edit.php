@@ -286,7 +286,16 @@ for(var i=1; i<=objTemp.hotspots.length; i++){
 
 </td>
 </tr>
-
+<tr>
+	<td>Status</td>
+	<td>
+		<select name="status">
+			<option value="Published" <?php echo ''.($row['status'] == 'Published' ? 'selected' : '').'' ?>>Published</option>
+			<option value="Private" <?php echo ''.($row['status'] == 'Private' ? 'selected' : '').'' ?>>Private</option>
+			<option value="Not published" <?php echo ''.($row['status'] == 'Not published' ? 'selected' : '').'' ?>>Not published</option>
+		</select>
+	</td>
+</tr>
 </table>
 <br />
 <input class="btn btn-primary" type="submit" value="Ok"> <input class="btn btn-warning" type="reset" value="Reset"> <a class="btn btn-success" href="list.php">Back</a>

@@ -232,6 +232,16 @@ document.getElementById('mode_content').value=modecontent;
 
 	</td>
 </tr>
+<tr>
+	<td>Status</td>
+	<td>
+		<select name="status">
+			<option value="Published">Published</option>
+			<option value="Private">Private</option>
+			<option value="Not published">Not published</option>
+		</select>
+	</td>
+</tr>
 
 </table>
 <br />
