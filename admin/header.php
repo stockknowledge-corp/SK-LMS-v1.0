@@ -14,15 +14,18 @@ $heading = ucwords($heading[0]);
 $loggedin=false;
 
 
-if(isset($_COOKIE['loggedin'])) {
-	$loggedin=$_COOKIE['loggedin'];
+// if(isset($_COOKIE['loggedin'])) {
+if(isset($_SESSION['loggedin'])) {
+	// $loggedin=$_COOKIE['loggedin'];
+	$loggedin=$_SESSION['loggedin'];
 	require_once("_class.dba.inc.php");
 	require_once("_conf.dba.inc.php");
 	$queryx = "SELECT * FROM sk_users WHERE id='".$loggedin."' LIMIT 1";
 	$resultx = $dba->query($queryx);
 	$rowx = $dba->fetch_array($resultx);
 	if($rowx){
-		setcookie('usertype', $rowx['usertype'], time() + (86400 * 30)); 
+		// setcookie('usertype', $rowx['usertype'], time() + (86400 * 30)); 
+		$_SESSION['usertype'] = $rowx['usertype'];
 		$usertype=$rowx['usertype'];
 		} else {
 			$loggedin=false;

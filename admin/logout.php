@@ -1,6 +1,7 @@
 <?php
 
-setcookie('loggedin', '', time() - (86400 * 30)); 
+// setcookie('loggedin', '', time() - (86400 * 30)); 
+$_SESSION['loggedin'] = '';
 $loggedin = false;
 
 require_once("_class.dba.inc.php");

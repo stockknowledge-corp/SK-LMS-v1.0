@@ -6,7 +6,8 @@ require_once("../_conf.dba.inc.php");
 require_once("../_static.session.inc.php");
 validate_session();
 
-if($_COOKIE['usertype'] == 3)
+// if($_COOKIE['usertype'] == 3)
+if($_SESSION['usertype'] == 3)
 	header("Location: http://".$_SERVER['HTTP_HOST']."/admin/sk_pages/401.php");
 
 if(IsSet($_GET['offset'])) {
@@ -65,8 +66,10 @@ switch($_REQUEST['order']) {
 
 $queryCondition = '';
 
-if($_COOKIE['usertype'] == 2){
-	$query = "SELECT schoolname FROM sk_teachers WHERE user_id = ".$_COOKIE['loggedin'];
+// if($_COOKIE['usertype'] == 2){
+if($_SESSION['usertype'] == 2){
+	// $query = "SELECT schoolname FROM sk_teachers WHERE user_id = ".$_COOKIE['loggedin'];
+	$query = "SELECT schoolname FROM sk_teachers WHERE user_id = ".$_SESSION['loggedin'];
 	$row = $dba->query_first($query);
 
 	$queryCondition = 'WHERE schoolname = \''.$row['schoolname'].'\'';
@@ -130,7 +133,8 @@ echo("<tr>\n");
 	$queryi = "SELECT * FROM sk_users WHERE id = '".$row['user_id']."'";
 	$rowi = $dba->query_first($queryi);
 
-	if($_COOKIE['usertype'] == 1)
+	// if($_COOKIE['usertype'] == 1)
+	if($_SESSION['usertype'] == 1)	
 		echo("\t<td><a href='edit.php?id=".$row['id']."'>".$rowi[1]."</a></td>\n");
 	else
 		echo("\t<td>".$rowi[1]."</td>\n");
@@ -175,8 +179,9 @@ if($num > $list_limit_per_page) {
 <br />
 
 <?php 
-	if($_COOKIE['usertype'] == 1)
-	echo '<a href="new.php" class="btn btn-success">Create new Entry</a>';
+	// if($_COOKIE['usertype'] == 1)
+	if($_SESSION['usertype'] == 1)	
+		echo '<a href="new.php" class="btn btn-success">Create new Entry</a>';
 ?>
 
 </div></div>

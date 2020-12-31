@@ -84,15 +84,18 @@ switch($_REQUEST['order']) {
 
 $queryCondition = '';
 
-switch($_COOKIE['usertype']){
+// switch($_COOKIE['usertype']){
+switch($_SESSION['usertype']){	
 	case 2:
-		$query = "SELECT schoolname FROM sk_teachers WHERE user_id = ".$_COOKIE['loggedin'];
+		// $query = "SELECT schoolname FROM sk_teachers WHERE user_id = ".$_COOKIE['loggedin'];
+		$query = "SELECT schoolname FROM sk_teachers WHERE user_id = ".$_SESSION['loggedin'];	
 		$row = $dba->query_first($query);
 
 		$queryCondition = 'WHERE schoolname = \''.$row['schoolname'].'\'';
 		break;
 	case 3:
-		$queryCondition = 'WHERE user_id = '.$_COOKIE['loggedin'];
+		// $queryCondition = 'WHERE user_id = '.$_COOKIE['loggedin'];
+		$queryCondition = 'WHERE user_id = '.$_SESSION['loggedin'];		
 		break;
 	default:
 }
@@ -164,7 +167,8 @@ if(substr($order_link_arg_head,0,-4) == 'progress') {
 ?>
 <th class=sk_progress><a href="list.php?order=<?= $ola ?>">Progress</a></th>
 <?php 
-	if($_COOKIE['usertype'] != 3)
+	// if($_COOKIE['usertype'] != 3)	
+	if($_SESSION['usertype'] != 3)
 		echo '<th class="crud" width="200">Controls</th>' ?>
 </tr>
 <?php 
@@ -173,7 +177,8 @@ echo("<tr>\n");
 	$queryi = "SELECT * FROM sk_users WHERE id = '".$row['user_id']."'";
 	$rowi = $dba->query_first($queryi);
 
-	if($_COOKIE['usertype'] != 3)
+	// if($_COOKIE['usertype'] != 3)
+	if($_SESSION['usertype'] != 3)
 		echo("\t<td><a href='edit.php?id=".$row['id']."'>".$rowi[1]."</a></td>\n");
 	else
 		echo("\t<td>".$rowi[1]."</td>\n");
@@ -182,7 +187,8 @@ echo("<tr>\n");
 	echo("\t<td>".substr(htmlentities($row['schoolname']),0,80)."</td>\n");
 	echo("\t<td>".substr(htmlentities($row['progress']),0,80)."</td>\n");
 
-	if($_COOKIE['usertype'] != 3)
+	// if($_COOKIE['usertype'] != 3)
+	if($_SESSION['usertype'] != 3)
 		echo("\t<td><a href=\"edit.php?id=".$row['id']."\" class=\"btn btn-warning\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a> <a href=\"delete.php?id=".$row['id']."\" class=\"btn btn-danger\"><i class=\"fa fa-trash\" aria-hidden=\"true\"></i>
 </a></td>");
 	echo("</tr> ");
@@ -221,7 +227,8 @@ if($num > $list_limit_per_page) {
 <br />
 <br />
 <?php 
-	if($_COOKIE['usertype'] == 1)
+	// if($_COOKIE['usertype'] == 1)
+	if($_SESSION['usertype'] == 1)	
 	echo '<a href="new.php" class="btn btn-success">Create new Entry</a>';
 ?>
 

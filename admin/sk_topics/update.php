@@ -8,7 +8,9 @@ validate_session();
 $query = "UPDATE sk_topics SET chapter='".$_REQUEST['chapter']."',title='".$_REQUEST['title']."',description='".$_REQUEST['description']."',background='".$_FILES["background"]["name"]."',content='".$_REQUEST['content']."',mode_content='".mysqli_real_escape_string($dba->link_id,$_REQUEST['mode_content'])."',grade_level='".$_REQUEST['grade_level']."',subject_id='".$_REQUEST['subject_id']."',author_id='".$_REQUEST['author_id']."',mode_id='".$_REQUEST['mode_id']."', status = '".mysqli_real_escape_string($dba->link_id, $_REQUEST['status'])."' WHERE id='".mysqli_real_escape_string($dba->link_id,$_REQUEST['id'])."'";
 $dba->query($query);
 
-$query2 = "INSERT INTO sk_history (module,activity,datetime,user_id) VALUES ('".mysqli_real_escape_string($dba->link_id,'Topics')."','".mysqli_real_escape_string($dba->link_id,'Topic edited: '.$_REQUEST['title'])."',NOW(),'".mysqli_real_escape_string($dba->link_id,$_COOKIE['loggedin'])."')";
+// $query2 = "INSERT INTO sk_history (module,activity,datetime,user_id) VALUES ('".mysqli_real_escape_string($dba->link_id,'Topics')."','".mysqli_real_escape_string($dba->link_id,'Topic edited: '.$_REQUEST['title'])."',NOW(),'".mysqli_real_escape_string($dba->link_id,$_COOKIE['loggedin'])."')";
+$query2 = "INSERT INTO sk_history (module,activity,datetime,user_id) VALUES ('".mysqli_real_escape_string($dba->link_id,'Topics')."','".mysqli_real_escape_string($dba->link_id,'Topic edited: '.$_REQUEST['title'])."',NOW(),'".mysqli_real_escape_string($dba->link_id,$_SESSION['loggedin'])."')";
+
 $dba->query($query2);
 
 $error = '';

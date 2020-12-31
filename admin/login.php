@@ -1,7 +1,7 @@
 <?php
 
-setcookie('loggedin', '', time() - (86400 * 30)); 
-setcookie('usertype', '', time() - (86400 * 30)); 
+// setcookie('loggedin', '', time() - (86400 * 30)); 
+// setcookie('usertype', '', time() - (86400 * 30)); 
 $loggedin = false;
 
 require_once("_class.dba.inc.php");
@@ -20,7 +20,8 @@ if(isset($_GET['login'])){
 		$query2 = "INSERT INTO sk_history (module,activity,datetime,user_id) VALUES ('".mysqli_real_escape_string($dba->link_id,'Users')."','".mysqli_real_escape_string($dba->link_id,'User login')."',NOW(),'".mysqli_real_escape_string($dba->link_id,$row['id'])."')";
 		$dba->query($query2);
 
-		setcookie('loggedin', $row['id'], time() + (86400 * 30)); 
+		// setcookie('loggedin', $row['id'], time() + (86400 * 30)); 
+		$_SESSION['loggedin'] = $row['id'];
 		$_SESSION['flash'] = "Login successful";
 		header("Location: ".$home_url."/sk_users/edit.php?id=".$row['id']);
 
@@ -79,7 +80,8 @@ $dba->query($query3);
 
 
 
-setcookie('loggedin', $dba->insert_id(), time() + (86400 * 30)); 
+// setcookie('loggedin', $dba->insert_id(), time() + (86400 * 30)); 
+$_SESSION['loggedin'] = $row['id'];
 $_SESSION['flash'] = "Registration Successful";
 header("Location: ".$home_url."/sk_users/edit.php?id=".$last_id);
 } else {

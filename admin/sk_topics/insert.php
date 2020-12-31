@@ -8,7 +8,8 @@ validate_session();
 $query = "INSERT INTO sk_topics (chapter,title,description,background,content,mode_content,grade_level,subject_id,author_id,mode_id,status) VALUES ('".mysqli_real_escape_string($dba->link_id,$_REQUEST['chapter'])."','".mysqli_real_escape_string($dba->link_id,$_REQUEST['title'])."','".mysqli_real_escape_string($dba->link_id,$_REQUEST['description'])."','".mysqli_real_escape_string($dba->link_id,$_FILES['background']['name'])."','".mysqli_real_escape_string($dba->link_id,$_REQUEST['content'])."','".mysqli_real_escape_string($dba->link_id,$_REQUEST['mode_content'])."','".mysqli_real_escape_string($dba->link_id,$_REQUEST['grade_level'])."','".mysqli_real_escape_string($dba->link_id,$_REQUEST['subject_id'])."','".mysqli_real_escape_string($dba->link_id,$_REQUEST['author_id'])."','".mysqli_real_escape_string($dba->link_id,$_REQUEST['mode_id'])."','".mysqli_real_escape_string($dba->link_id,$_REQUEST['status'])."')";
 $dba->query($query);
 
-$query2 = "INSERT INTO sk_history (module,activity,datetime,user_id) VALUES ('".mysqli_real_escape_string($dba->link_id,'Topics')."','".mysqli_real_escape_string($dba->link_id,'New topic added: '.$_REQUEST['title'])."',NOW(),'".mysqli_real_escape_string($dba->link_id,$_COOKIE['loggedin'])."')";
+// $query2 = "INSERT INTO sk_history (module,activity,datetime,user_id) VALUES ('".mysqli_real_escape_string($dba->link_id,'Topics')."','".mysqli_real_escape_string($dba->link_id,'New topic added: '.$_REQUEST['title'])."',NOW(),'".mysqli_real_escape_string($dba->link_id,$_COOKIE['loggedin'])."')";
+$query2 = "INSERT INTO sk_history (module,activity,datetime,user_id) VALUES ('".mysqli_real_escape_string($dba->link_id,'Topics')."','".mysqli_real_escape_string($dba->link_id,'New topic added: '.$_REQUEST['title'])."',NOW(),'".mysqli_real_escape_string($dba->link_id,$_SESSION['loggedin'])."')";
 $dba->query($query2);
 
 $error = '';

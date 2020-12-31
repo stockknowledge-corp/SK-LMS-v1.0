@@ -69,7 +69,10 @@ echo("<option value='".$row['id']."'>"."".$row[1]."</option>
 </tr>
 <tr style="display:none;">
 	<td>Author</td>
-	<td><input type="hidden" name="author_id" value="<?php echo $_COOKIE['loggedin']; ?>"></td>
+	<td><input type="hidden" name="author_id" value="<?php 
+	//echo $_COOKIE['loggedin']; 
+	echo $_SESSION['loggedin'];
+	?>"></td>
 </tr>
 <tr>
 	<td>Mode</td>

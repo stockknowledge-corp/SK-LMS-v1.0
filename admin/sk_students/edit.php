@@ -5,7 +5,8 @@ require_once("../_conf.dba.inc.php");
 require_once("../_static.session.inc.php");
 validate_session();
 
-if($_COOKIE['usertype'] == 3)
+// if($_COOKIE['usertype'] == 3)
+if($_SESSION['usertype'] == 3)
 	header("Location: http://".$_SERVER['HTTP_HOST']."/admin/sk_pages/401.php");
 
 $query = "SELECT * FROM sk_students WHERE id='".$_REQUEST['id']."' LIMIT 1";
@@ -62,7 +63,8 @@ while($rowi = $dba->fetch_array($results)) {
 </tr>
 <?php 
 
-if($_COOKIE['usertype'] == 1)
+// if($_COOKIE['usertype'] == 1)
+if($_SESSION['usertype'] == 1)
 	echo '<tr>
 			<td>Progress</td>
 			<td>

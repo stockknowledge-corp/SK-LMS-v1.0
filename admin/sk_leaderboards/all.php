@@ -24,15 +24,18 @@ $order_link_arg = "progress_dsc";
 
 $queryCondition = '';
 
-switch($_COOKIE['usertype']){
+// switch($_COOKIE['usertype']){
+switch($_SESSION['usertype']){	
 	case 2:
-		$query = "SELECT gradelevel, schoolname FROM sk_teachers WHERE user_id = ".mysqli_real_escape_string($dba->link_id,$_COOKIE['loggedin']);
+		// $query = "SELECT gradelevel, schoolname FROM sk_teachers WHERE user_id = ".mysqli_real_escape_string($dba->link_id,$_COOKIE['loggedin']);
+		$query = "SELECT gradelevel, schoolname FROM sk_teachers WHERE user_id = ".mysqli_real_escape_string($dba->link_id,$_SESSION['loggedin']);		
 		$row = $dba->query_first($query);
 
 		$queryCondition = 'WHERE gradelevel = \''.mysqli_real_escape_string($dba->link_id, $row['gradelevel']).'\' AND schoolname = \''.mysqli_real_escape_string($dba->link_id, $row['schoolname']).'\'';
 		break;
 	case 3:
-		$query = "SELECT gradelevel, schoolname FROM sk_students WHERE user_id = ".mysqli_real_escape_string($dba->link_id, $_COOKIE['loggedin']);
+		// $query = "SELECT gradelevel, schoolname FROM sk_students WHERE user_id = ".mysqli_real_escape_string($dba->link_id, $_COOKIE['loggedin']);
+		$query = "SELECT gradelevel, schoolname FROM sk_students WHERE user_id = ".mysqli_real_escape_string($dba->link_id, $_SEESION['loggedin']);		
 		$row = $dba->query_first($query);
 
 		$queryCondition = 'WHERE gradelevel = \''.mysqli_real_escape_string($dba->link_id, $row['gradelevel']).'\' AND schoolname = \''.mysqli_real_escape_string($dba->link_id, $row['schoolname']).'\'';

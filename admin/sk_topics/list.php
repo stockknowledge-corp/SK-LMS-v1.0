@@ -6,7 +6,8 @@ require_once("../_conf.dba.inc.php");
 require_once("../_static.session.inc.php");
 validate_session();
 
-if($_COOKIE['usertype'] == 3)
+// if($_COOKIE['usertype'] == 3)
+if($_SESSION['usertype'] == 3)
 	header("Location: http://".$_SERVER['HTTP_HOST']."/admin/sk_pages/401.php");
 
 if(IsSet($_GET['offset'])) {
@@ -252,7 +253,8 @@ if(substr($order_link_arg_head,0,-4) == 'status') {
 <?php 
 while($row = $dba->fetch_array($results)) {
 echo("<tr>\n");
-	if($_COOKIE['usertype'] == 1)
+	// if($_COOKIE['usertype'] == 1)
+	if($_SESSION['usertype'] == 1)	
 		echo("\t<td><a href='edit.php?id=".$row['id']."'>".substr(htmlentities($row['title']),0,80)."</a></td>\n");
 	else
 		echo("\t<td>".substr(htmlentities($row['title']),0,80)."</td>\n");
@@ -309,8 +311,9 @@ if($num > $list_limit_per_page) {
 <br />
 
 <?php 
-	if($_COOKIE['usertype'] == 1)
-	echo '<a href="new.php" class="btn btn-success">Create new Entry</a>'
+	// if($_COOKIE['usertype'] == 1)
+	if($_SESSION['usertype'] == 1)	
+		echo '<a href="new.php" class="btn btn-success">Create new Entry</a>'
 ?>
 
 </div></div>

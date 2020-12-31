@@ -4,7 +4,8 @@ require_once("../_conf.dba.inc.php");
 require_once("../_static.session.inc.php");
 validate_session();
 
-if($_COOKIE['usertype'] == 3)
+// if($_COOKIE['usertype'] == 3)
+if($_SESSION['usertype'] == 3)
 	header("Location: http://".$_SERVER['HTTP_HOST']."/admin/sk_pages/401.php");
 
 if(IsSet($_GET['offset'])) {
@@ -75,8 +76,10 @@ switch($_REQUEST['order']) {
 
 $queryCondition = '';
 
-if($_COOKIE['usertype'] == 2){
-	$query = 'SELECT gradelevel, schoolname FROM sk_teachers WHERE user_id = '.mysqli_real_escape_string($dba->link_id, $_COOKIE['loggedin']);
+// if($_COOKIE['usertype'] == 2){
+if($_SESSION['usertype'] == 2){
+	// $query = 'SELECT gradelevel, schoolname FROM sk_teachers WHERE user_id = '.mysqli_real_escape_string($dba->link_id, $_COOKIE['loggedin']);
+	$query = 'SELECT gradelevel, schoolname FROM sk_teachers WHERE user_id = '.mysqli_real_escape_string($dba->link_id, $_SESSION['loggedin']);	
 	$row = $dba->query_first($query);
 	
 	$queryCondition = 'WHERE schoolname = \''.mysqli_real_escape_string($dba->link_id, $row['schoolname']).'\' AND gradelevel = \''.mysqli_real_escape_string($dba->link_id, $row['gradelevel']).'\'';

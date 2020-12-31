@@ -39,7 +39,9 @@ if($editerror==''){
 $query = "UPDATE sk_users SET username='".$_REQUEST['username']."',password='".$pw."',email='".$_REQUEST['email']."',mobile='".$_REQUEST['mobile']."',firstname='".$_REQUEST['firstname']."',lastname='".$_REQUEST['lastname']."',usertype='".$_REQUEST['usertype']."' WHERE id='".mysqli_real_escape_string($dba->link_id,$_REQUEST['id'])."'";
 $dba->query($query);
 
-$query2 = "INSERT INTO sk_history (module,activity,datetime,user_id) VALUES ('".mysqli_real_escape_string($dba->link_id,'Users')."','".mysqli_real_escape_string($dba->link_id,'User Edited: '.$_REQUEST['username'])."',NOW(),'".mysqli_real_escape_string($dba->link_id,$_COOKIE['loggedin'])."')";
+// $query2 = "INSERT INTO sk_history (module,activity,datetime,user_id) VALUES ('".mysqli_real_escape_string($dba->link_id,'Users')."','".mysqli_real_escape_string($dba->link_id,'User Edited: '.$_REQUEST['username'])."',NOW(),'".mysqli_real_escape_string($dba->link_id,$_COOKIE['loggedin'])."')";
+$query2 = "INSERT INTO sk_history (module,activity,datetime,user_id) VALUES ('".mysqli_real_escape_string($dba->link_id,'Users')."','".mysqli_real_escape_string($dba->link_id,'User Edited: '.$_REQUEST['username'])."',NOW(),'".mysqli_real_escape_string($dba->link_id,$_SESSION['loggedin'])."')";
+
 $dba->query($query2);
 
 

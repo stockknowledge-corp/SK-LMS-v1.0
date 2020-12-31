@@ -6,7 +6,8 @@ require_once("../_conf.dba.inc.php");
 require_once("../_static.session.inc.php");
 validate_session();
 
-if($_COOKIE['usertype'] != 1)
+// if($_COOKIE['usertype'] != 1)
+if($_SESSION['usertype'] != 1)
 	header("Location: http://".$_SERVER['HTTP_HOST']."/admin/sk_pages/401.php");
 
 if(IsSet($_GET['offset'])) {
@@ -121,9 +122,11 @@ switch($_REQUEST['order']) {
 $query = '';
 $query_c = '';
 
-switch($_COOKIE['usertype']){
+// switch($_COOKIE['usertype']){
+switch($_SESSION['usertype']){	
 	case 2:
-		$query = "SELECT schoolname FROM sk_teachers WHERE user_id = ".$_COOKIE['loggedin'];
+		// $query = "SELECT schoolname FROM sk_teachers WHERE user_id = ".$_COOKIE['loggedin'];
+		$query = "SELECT schoolname FROM sk_teachers WHERE user_id = ".$_SESSION['loggedin'];
 		$row = $dba->query_first($query);
 
 		$query = 'SELECT sk_users.id, username, email, mobile, firstname, lastname, usertype FROM `sk_users` WHERE id = '.$_COOKIE['loggedin'].
@@ -133,8 +136,10 @@ switch($_COOKIE['usertype']){
 		$query_c = 'SELECT count(*) FROM ('.$query.') t';
 		break;
 	case 3:
-		$query = "SELECT * FROM sk_users WHERE id = ".$_COOKIE['loggedin'];
-		$query_c = 'SELECT count(*) FROM sk_users WHERE id = '.$_COOKIE['loggedin'];
+		// $query = "SELECT * FROM sk_users WHERE id = ".$_COOKIE['loggedin'];
+		$query = "SELECT * FROM sk_users WHERE id = ".$_SESSION['loggedin'];
+		// $query_c = 'SELECT count(*) FROM sk_users WHERE id = '.$_COOKIE['loggedin'];
+		$query_c = 'SELECT count(*) FROM sk_users WHERE id = '.$_SESSION['loggedin'];
 		break;
 	default:
 		$query = "SELECT * FROM sk_users";
