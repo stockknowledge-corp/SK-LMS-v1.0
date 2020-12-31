@@ -99,7 +99,7 @@ entities+=`
         </a-entity>
     </a-entity>
 
-    <a-sky color="#999999" src="" ></a-sky>
+    <a-sky color="#999999" src="../assets/background/`+r.background+`" ></a-sky>
     <a-gltf-model disabled src="#main3d" `+r.modecontent.instructions+`
     </a-gltf-model>
 
@@ -117,7 +117,10 @@ document.querySelector('#help').addEventListener('click',function(e){
     document.querySelector('#instructions').setAttribute('visible','true');
 })
 document.querySelector('#exit').addEventListener('click',function(e){
+    document.querySelector('#mode1').innerHTML='';
     changeScreen('#dashboard');
+    dashTabs('#dash-home'); 
+
 //    location.reload();
 })
 document.querySelector('#close_panel').addEventListener('click',function(e){

@@ -7,6 +7,8 @@ if(currentUrl[currentUrl.length-1].search('#')>=0) currentUrl[currentUrl.length-
 currentUrl=currentUrl.join('/');
 currentUrl=currentUrl.split('?p=');
 currentUrl=currentUrl[0];
+currentUrl=currentUrl.split('?mode=');
+currentUrl=currentUrl[0];
 var path = getParameterByName('p');
 var modepath = getParameterByName('mode');
 var topicpath = getParameterByName('topic');
@@ -300,7 +302,8 @@ function getTopics(){
 	       		// html+=r.content[i].description+'<br>';
 	       		// html+=r.content[i].background+'<br><br>';
 	       		html+=`
-				<div class="topic" id="`+r.content[i].id+`" onclick="changeScreen('#mode1'); getScene(`+r.content[i].id+`)">
+				<div class="topic" id="`+r.content[i].id+`" onclick="changeScreen('#mode1'); getScene(`+r.content[i].id+`)"
+				style="background-image: url('../assets/background/`+r.content[i].background+`')">
 					<div class="topic-card">
 						<h2 class="topic-title">`+r.content[i].topic+`</h2>
 						<div class="topic-subject">`+r.content[i].subject+`</div>
