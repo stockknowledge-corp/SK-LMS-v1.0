@@ -375,7 +375,7 @@ function getTopics(){
   //   echo '],';
   // }
   //  echo ']';
-  $query = 'SELECT * FROM sk_topics WHERE \`status\` = \'Published\'  ORDER BY id DESC LIMIT 50';
+  $query = 'SELECT * FROM sk_topics WHERE `status` = \'Published\'  ORDER BY id DESC LIMIT 50';
   $results = $dba->query($query);
   $r = '{"result":"success","content":[';
   while($row = $dba->fetch_array($results)) {
