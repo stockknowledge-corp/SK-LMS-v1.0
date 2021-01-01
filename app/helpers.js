@@ -99,6 +99,7 @@ var stringToHTML = function (str) {
     dom.innerHTML = str;
     // dom.setAttribute('id','main3d');
     dom.setAttribute('embedded','');
+    dom.setAttribute('loading-screen',"dotsColor: white; backgroundColor: white");
     return dom;
 
 };
