@@ -82,8 +82,10 @@ if($_COOKIE['usertype'] == 2){
 	$queryCondition = 'WHERE schoolname = \''.mysqli_real_escape_string($dba->link_id, $row['schoolname']).'\' AND gradelevel = \''.mysqli_real_escape_string($dba->link_id, $row['gradelevel']).'\'';
 }
 
-$query = "SELECT * FROM sk_history JOIN sk_students ON sk_students.user_id = sk_history.user_id ".$queryCondition.$order_clause." LIMIT ".$offset.",".$list_limit;
-$query_c = "SELECT count(*) FROM sk_history JOIN sk_students ON sk_students.user_id = sk_history.user_id ".$queryCondition;
+// $query = "SELECT * FROM sk_history JOIN sk_students ON sk_students.user_id = sk_history.user_id ".$queryCondition.$order_clause." LIMIT ".$offset.",".$list_limit;
+// $query_c = "SELECT count(*) FROM sk_history JOIN sk_students ON sk_students.user_id = sk_history.user_id ".$queryCondition;
+$query = "SELECT * FROM sk_history ".$queryCondition.$order_clause." LIMIT ".$offset.",".$list_limit;
+$query_c = "SELECT count(*) FROM sk_history ".$queryCondition;
 
 $num = $dba->query_first($query_c);
 if($num[0] > 0) { 
@@ -93,6 +95,7 @@ if($num[0] > 0) {
 	$query = "SELECT * FROM sk_history";
 }
 $results = $dba->query($query);
+// echo $query;
 ?>
 <html>
 <head>
