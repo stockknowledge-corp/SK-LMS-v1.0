@@ -349,6 +349,10 @@ a{
     width: auto;
 }
 
+#dash-menu ul li:last-child{
+	display: none;
+}
+
 @media only screen and (max-width: 1024px) {
 	body>div>div{
 		width: 98% !important;
@@ -424,6 +428,9 @@ a{
 	}
 	#dash-menu ul{
 		margin-top: 0px;
+	}
+	#dash-menu ul li:last-child{
+		display: block;
 	}
 
 }
