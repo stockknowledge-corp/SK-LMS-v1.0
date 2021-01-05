@@ -412,6 +412,14 @@ a{
 		display: block;
 	}
 }
+
+@media only screen and (max-width: 800px) {
+
+	#dash-menu ul li:last-child{
+		display: block;
+	}
+}
+
 @media only screen and (max-width: 500px) {
 	#header img {
 	    width: 100%;
@@ -428,9 +436,6 @@ a{
 	}
 	#dash-menu ul{
 		margin-top: 0px;
-	}
-	#dash-menu ul li:last-child{
-		display: block;
 	}
 
 }
