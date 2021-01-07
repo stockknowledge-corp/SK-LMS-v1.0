@@ -10,4 +10,4 @@ Additional shared information across the whole ecosystem are;
 - Additional assets.
 
 # Installation
-https://stock-knowledge-engineering.github.io/documentation/lms-installation-and-docs/
+https://stock-knowledge-engineering.github.io/lms-installation-and-docs/
