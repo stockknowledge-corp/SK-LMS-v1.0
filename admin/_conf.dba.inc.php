@@ -1,7 +1,7 @@
 <?php
 $dba = new dba;
 $dba->appname = "Stock Knowledge";
-$dba->database = "stockknowledge";
+$dba->database = "stockknowledge_with_forgot_password";
 $dba->server = "localhost";
 $dba->user = "root";
 $dba->password = "";
