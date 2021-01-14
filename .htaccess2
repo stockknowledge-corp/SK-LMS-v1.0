@@ -1,3 +1,0 @@
-ErrorDocument 401 https://stockknowledge.org/admin/sk_pages/401.php
-ErrorDocument 404 https://stockknowledge.org/admin/sk_pages/404.php
-ErrorDocument 500 https://stockknowledge.org/admin/sk_pages/500.php

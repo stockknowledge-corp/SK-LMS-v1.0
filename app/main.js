@@ -308,7 +308,7 @@ function getTopics(){
 						<h2 class="topic-title">`+r.content[i].topic+`</h2>
 						<div class="topic-subject">`+r.content[i].subject+`</div>
 						<div class="topic-subtitle">`+r.content[i].description+`</div>
-						<div class="topic-progress"><i class="fa fa-star" aria-hidden="true"></i> 1/3</div>
+						<!-- <div class="topic-progress"><i class="fa fa-star" aria-hidden="true"></i> 1/3</div>-->
 					</div>
 					<div class="clear"></div>
 				</div>`;
