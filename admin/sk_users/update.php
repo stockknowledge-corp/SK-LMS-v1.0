@@ -15,7 +15,7 @@ if($_REQUEST['password-temp']!=''){
 
 if($_POST['username']=='') $editerror.='<li>Username required</li>';
 if($_POST['username']!=''){
-	$query = "SELECT * FROM sk_users WHERE username='".$_POST['username']."' AND password='".md5($_POST['password'])."' LIMIT 1";
+	$query = "SELECT * FROM sk_users WHERE username='".mysqli_real_escape_string($dba->link_id, $_POST['username'])."' AND password='".mysqli_real_escape_string($dba->link_id,md5($_POST['password']))."' LIMIT 1";
 	$result = $dba->query($query);
 	$row = $dba->fetch_array($result);
 	if($row) $editerror.='<li>Username already exists</li>';
@@ -36,7 +36,7 @@ if($_POST['lastname']=='') $editerror.='<li>Last Name required</li>';
 // }
 
 if($editerror==''){
-$query = "UPDATE sk_users SET username='".$_REQUEST['username']."',password='".$pw."',email='".$_REQUEST['email']."',mobile='".$_REQUEST['mobile']."',firstname='".$_REQUEST['firstname']."',lastname='".$_REQUEST['lastname']."',usertype='".$_REQUEST['usertype']."' WHERE id='".mysqli_real_escape_string($dba->link_id,$_REQUEST['id'])."'";
+$query = "UPDATE sk_users SET username='".mysqli_real_escape_string($dba->link_id,$_REQUEST['username'])."',password='".$pw."',email='".mysqli_real_escape_string($dba->link_id,$_REQUEST['email'])."',mobile='".mysqli_real_escape_string($dba->link_id,$_REQUEST['mobile'])."',firstname='".mysqli_real_escape_string($dba->link_id,$_REQUEST['firstname'])."',lastname='".mysqli_real_escape_string($dba->link_id,$_REQUEST['lastname'])."',usertype='".mysqli_real_escape_string($dba->link_id,$_REQUEST['usertype'])."' WHERE id='".mysqli_real_escape_string($dba->link_id,$_REQUEST['id'])."'";
 $dba->query($query);
 
 $query2 = "INSERT INTO sk_history (module,activity,datetime,user_id) VALUES ('".mysqli_real_escape_string($dba->link_id,'Users')."','".mysqli_real_escape_string($dba->link_id,'User Edited: '.$_REQUEST['username'])."',NOW(),'".mysqli_real_escape_string($dba->link_id,$_COOKIE['loggedin'])."')";
