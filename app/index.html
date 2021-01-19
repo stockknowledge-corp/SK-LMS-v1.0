@@ -282,7 +282,11 @@
 	// showLoader('Updating app...<br>Please check back later.',1000000000000);
 	// document.getElementById('loading-msg').innerHTML='Updating app...<br>Please check back later.';
 	// document.querySelector('#loader').style.display='block';
-
+document.onkeydown = function (t) {
+ if(t.which == 9){
+  return false;
+ }
+}
 </script>
 
 </body>
