@@ -34,7 +34,7 @@ function resetCam(){
 }
 
 function createScene(r){
-console.log(r);
+// console.log(r);
 var entities=`
     <a-assets>
         <a-asset-item id="main3d" src="../assets/3d/`+r.modecontent['3dfile']+`"></a-asset-item>
@@ -176,7 +176,7 @@ function hotclick(note,pos,id){
 
 
 function createScene2(r){
-console.log(r);
+// console.log(r);
 var entities=`
     <a-assets>
         <a-asset-item id="main3d" src="../assets/3d/`+r.modecontent['3dfile']+`"></a-asset-item>

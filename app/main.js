@@ -269,7 +269,7 @@ function getLeaderboard(){
 	       var r=JSON.parse(XHR.responseText);
 	       // console.log(r.result);
 	       if(r.result=='success') {
-	       	console.log(r.content);
+	       	// console.log(r.content);
 	       	var html='';
 	       	html='<button onclick="showLoader(\'Refreshing Top Students\',2000);			getLeaderboard();">Refresh</button><br>';
 	       	for(var i=0; i<r.content.length; i++){
@@ -293,7 +293,7 @@ function getTopics(){
 	       var r=JSON.parse(XHR.responseText);
 	       // console.log(r.result);
 	       if(r.result=='success') {
-	       	console.log(r.content);
+	       	// console.log(r.content);
 	       	var html='';
 	       	html='';
 	       	for(var i=0; i<r.content.length; i++){
@@ -332,7 +332,9 @@ xhttp.onreadystatechange = function() {
 		// tabTitle=tab.charAt(0).toUpperCase();
 		// window.history.pushState({},tabTitle,currentUrl+tab);
 		r = JSON.parse(xhttp.responseText);
-		createScene(r);
+		if(r.mode==1) createScene(r);
+		if(r.mode==2) createScene2(r);
+		// createScene(r);
 		var currentUrl2 = window.location.href;
 		currentUrl2=currentUrl2.split('?');
 		currentUrl2[1]=currentUrl2[1].split('&');
