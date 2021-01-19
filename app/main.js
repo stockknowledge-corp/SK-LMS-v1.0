@@ -5,11 +5,11 @@ currentUrl=currentUrl.split('/');
 if(currentUrl[currentUrl.length-1]=='index.html') currentUrl[currentUrl.length-1] ='';
 if(currentUrl[currentUrl.length-1].search('#')>=0) currentUrl[currentUrl.length-1] ='';
 currentUrl=currentUrl.join('/');
-currentUrl=currentUrl.split('?p=');
+currentUrl=currentUrl.split('?tab=');
 currentUrl=currentUrl[0];
 currentUrl=currentUrl.split('?mode=');
 currentUrl=currentUrl[0];
-var path = getParameterByName('p');
+var path = getParameterByName('tab');
 var modepath = getParameterByName('mode');
 var topicpath = getParameterByName('topic');
 window.history.pushState({},'Index',currentUrl);
@@ -105,7 +105,7 @@ function dashTabs(w){
 		document.querySelector('.mobile-menu-container').classList.remove("change");
 		var tab = w.replace('#dash-','');
 		tabTitle=tab.charAt(0).toUpperCase();
-		window.history.pushState({},tabTitle,currentUrl+tab);
+		window.history.pushState({},tabTitle,currentUrl+'?tab='+tab);
 
 	if(document.querySelector(w).style.display!='block'){
 		var divs = document.querySelectorAll('#dash-content>div'), i;
@@ -301,13 +301,16 @@ function getTopics(){
 	       		// html+=r.content[i].topic+'<br>';
 	       		// html+=r.content[i].description+'<br>';
 	       		// html+=r.content[i].background+'<br><br>';
+	       		modeText = 'Mode 1 - Interactive Lecture';
+	       		if(r.content[i].mode==2) modeText = 'Mode 2 - Activities and Experiments';
 	       		html+=`
-				<div class="topic" id="`+r.content[i].id+`" onclick="changeScreen('#mode1'); getScene(`+r.content[i].id+`)"
+				<div class="topic" id="`+r.content[i].id+`" onclick="changeScreen('#mode`+r.content[i].mode+`'); getScene(`+r.content[i].id+`)"
 				style="background-image: url('../assets/background/`+r.content[i].background+`')">
 					<div class="topic-card">
 						<h2 class="topic-title">`+r.content[i].topic+`</h2>
 						<div class="topic-subject">`+r.content[i].subject+`</div>
 						<div class="topic-subtitle">`+r.content[i].description+`</div>
+						<div class="topic-subtitle">`+modeText+`</div>
 						<!-- <div class="topic-progress"><i class="fa fa-star" aria-hidden="true"></i> 1/3</div>-->
 					</div>
 					<div class="clear"></div>
