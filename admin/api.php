@@ -388,6 +388,7 @@ function getTopics(){
       "description":"'.$row['description'].'",
       "grade_level":"'.$row['grade_level'].'",
       "subject":"'.$rowi[1].'",
+      "mode":"'.$row['mode_id'].'",
       "background":"'.$row['background'].'"
     },';
   }
