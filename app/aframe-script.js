@@ -215,9 +215,15 @@ var entities=`
 entities+=`
     </a-entity>
     <a-entity id="controls" overlay>
+        <a-plane width="2.5" height="0.6" color="#629632" position="0 3 -3" rotation="15 0 0">
+            <a-image class="clickable" id="up" src="images/arrow.png" position="0 0 0.1" scale="0.4 0.4 0.4" rotation="0 0 90"></a-image>
+            <a-image class="clickable" id="down" src="images/arrow.png" position="0.5 0 0.1" scale="0.4 0.4 0.4" rotation="0 0 270"></a-image>
+            <a-text id="counter" value="5" transparent="false" align="left"  position="-0.8 0 0.1" scale="2.7 2.7 2.7"></a-text>
+        </a-plane>
         <a-plane width="0.6" height="2" color="#629632" position="-2 1.6 -3" rotation="0 45 0">
-            <a-image class="clickable" id="help" src="images/help.png" position="0 0.5 0.1" scale="0.4 0.4 0.4"></a-image>
-            <a-image class="clickable" id="exit" src="images/exit.png" position="0 -0.5 0.1" scale="0.4 0.4 0.4"></a-image>
+            <a-image class="clickable" id="play" src="images/play.png" position="0 0.6 0.1" scale="0.4 0.4 0.4"></a-image>
+            <a-image class="clickable" id="help" src="images/help.png" position="0 -0.25 0.1" scale="0.4 0.4 0.4"></a-image>
+            <a-image class="clickable" id="exit" src="images/exit.png" position="0 -0.7 0.1" scale="0.4 0.4 0.4"></a-image>
         </a-plane>
         <a-entity id="instructions" position="0 1.6 0" visible="false">
             <a-image src="images/modalbg.png" position="0 0 -1" width="1.5" height="0.8">
@@ -275,6 +281,20 @@ document.querySelector('#close_panel').addEventListener('click',function(e){
 document.querySelector('#close_instructions').addEventListener('click',function(e){
     document.querySelector('#instructions').setAttribute('visible','false');
 })
+
+document.querySelector('#up').addEventListener('click',function(e){
+    c=document.querySelector('#counter').getAttribute('value');
+    c=parseInt(c);
+    document.querySelector('#counter').setAttribute('value',c+1);
+})
+document.querySelector('#down').addEventListener('click',function(e){
+    c=document.querySelector('#counter').getAttribute('value');
+    c=parseInt(c);
+    document.querySelector('#counter').setAttribute('value',c-1);
+
+})
+
+
 
 // showLoader('Loading VR Scene', 5000);
 showLoader(r.content, 5000);
