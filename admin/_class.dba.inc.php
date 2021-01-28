@@ -25,12 +25,12 @@ class dba {
         }
     }
     // $dba->geterrdesc(); - return the mysql-error
-  function geterrdesc() {
+    function geterrdesc() {
         $this->error = mysqli_error();
         return $this->error;
     }
     // $dba->geterrno(); - return the mysql-error number
-  function geterrno() {
+    function geterrno() {
         $this->errno = mysqli_errno();
         return $this->errno;
     }
@@ -88,12 +88,12 @@ class dba {
         return mysqli_insert_id($this->link_id);
     }
     // $dba->GetPrimaryCol( $table);
-  function GetPrimaryCol( $table) {
-    $result = $this->query( "DESCRIBE ".$table);
-    $row = $this->fetch_array( $result);
-    //row[0] holds the primary fieldname. get it and return it
-    return $row[0];
-  }
+    function GetPrimaryCol( $table) {
+      $result = $this->query( "DESCRIBE ".$table);
+      $row = $this->fetch_array( $result);
+      //row[0] holds the primary fieldname. get it and return it
+      return $row[0];
+    }
     // $dba->print_error( $msg); - prints an error
     function print_error($msg) {
         // $this->errdesc = mysqli_error();

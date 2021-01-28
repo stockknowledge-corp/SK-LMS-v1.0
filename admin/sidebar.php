@@ -4,7 +4,7 @@
     	<a href="<?php echo $home_url;?>"><img src="<?php echo $home_url;?>/images/sk-logo.png"></a>
     </div>
     <div class="col-4 text-right">
-      <?php if($loggedin){?>
+      <?php if($loggedin && $verified){?>
         <div class="mobile-menu-container" onclick="menuToggle(this)">
           <div class="bar1"></div>
           <div class="bar2"></div>
@@ -14,7 +14,7 @@
     </div>
   </div>
   <div class="row">
-    <?php if($loggedin){?>
+    <?php if($loggedin && $verified){?>
     <div class="col-2" id="sidebar">
     	<ul>
         <li><a href="<?php echo $home_url;?>">Home</a></li>
@@ -45,6 +45,7 @@ if($usertype==3){
   ?>
 <?php } ?>
         <li><a href="<?php echo $home_url;?>/logout.php">Logout</a></li>
+  
 
     	</ul>
     </div>
@@ -52,3 +53,4 @@ if($usertype==3){
     <?php } else { ?>
     <div class="col-12 pr-3">
     <?php } ?>
+

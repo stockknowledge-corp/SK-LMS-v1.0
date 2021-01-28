@@ -3,6 +3,9 @@ require_once("_class.dba.inc.php");
 require_once("_conf.dba.inc.php");
 require_once("_static.session.inc.php");
 validate_session();
+
+if($_COOKIE['verified'] != 1)
+	header("Location: ".$home_url."/sk_pages/account-verification.php");
 ?>
 
 <!doctype html>

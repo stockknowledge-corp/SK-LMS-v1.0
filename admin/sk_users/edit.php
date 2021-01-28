@@ -8,6 +8,9 @@ validate_session();
 if($_COOKIE['usertype'] != 1)
 	header("Location: http://".$_SERVER['HTTP_HOST']."/admin/sk_pages/401.php");
 
+if($_COOKIE['verified'] != 1)
+	header("Location: ".$home_url."/sk_pages/account-verification.php");
+
 $editerror='';
 if(isset($_SESSION['error'])) {
 	$editerror=$_SESSION['error'];

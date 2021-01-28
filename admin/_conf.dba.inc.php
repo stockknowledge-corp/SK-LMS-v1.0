@@ -11,4 +11,5 @@ $home_url = 'http://localhost/SK-LMS-App/admin';
 
 $loggedin=false;
 $usertype=3;
+$verified = false;
 ?>

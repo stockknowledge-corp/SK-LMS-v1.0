@@ -20,7 +20,9 @@ if(isset($_GET['login'])){
 		$query2 = "INSERT INTO sk_history (module,activity,datetime,user_id) VALUES ('".mysqli_real_escape_string($dba->link_id,'Users')."','".mysqli_real_escape_string($dba->link_id,'User login')."',NOW(),'".mysqli_real_escape_string($dba->link_id,$row['id'])."')";
 		$dba->query($query2);
 
-		setcookie('loggedin', $row['id'], time() + (86400 * 30)); 
+		setcookie('loggedin', $row['id'], time() + (86400 * 30));
+		setcookie('email', $row['email'], time() + (86400 * 30));
+		setcookie('username', $row['username'], time() + (86400 * 30));
 		$_SESSION['flash'] = "Login successful";
 		header("Location: ".$home_url."/sk_users/edit.php?id=".$row['id']);
 
@@ -120,7 +122,7 @@ if(IsSet($_SESSION['flash'])) {
 			    			<div id="login-error"><?php echo $loginerror?></div>
 			    			<br>
 			    			<input type="submit" class="btn btn-primary pl-5 pr-5 m-0" value="Login"><br>
-			    			<a href="#" class="text-center">Forgot password</a>
+			    			<a href="<?php echo $home_url.'/sk_pages/forgot-password.php' ?>" class="text-center">Forgot password</a>
 			    			</form>
 			    		</div>
 		    		</div>

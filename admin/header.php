@@ -23,7 +23,9 @@ if(isset($_COOKIE['loggedin'])) {
 	$rowx = $dba->fetch_array($resultx);
 	if($rowx){
 		setcookie('usertype', $rowx['usertype'], time() + (86400 * 30)); 
+		setcookie('verified', $rowx['verified'], time() + (86400 * 30)); 
 		$usertype=$rowx['usertype'];
+		$verified = $rowx['verified'];
 		} else {
 			$loggedin=false;
 		}
